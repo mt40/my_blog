@@ -1,0 +1,11 @@
+version: '3'
+services:
+  scalajs_app:
+    # set this folder as build context
+    build: .
+    # mount source folders so code changes can be seen by Docker
+    volumes:
+      - ./build:/app/build
+      - ./index.html:/app/index.html
+    ports:
+      - "3000:80"

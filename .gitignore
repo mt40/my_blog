@@ -26,6 +26,3 @@ node_modules/
 
 ### Scalastyle ###
 /project/scalastyle_config.xml
-
-### Generated files ###
-build/

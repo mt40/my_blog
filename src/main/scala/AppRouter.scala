@@ -7,7 +7,7 @@ object AppRouter {
   sealed trait PageRepr
   case object Home extends PageRepr
 
-  final val baseUrl = {
+  private val baseUrl = {
     // Github Page serves "/<project_name>" not "/"
     val host = BaseUrl.fromWindowOrigin
     val base = if(host.value.contains("github")) Config.projectName else ""
@@ -23,6 +23,7 @@ object AppRouter {
       | staticRoute(root, Home) ~> render(HomePage()))
       .notFound(redirectToPage(Home)(Redirect.Replace))
   }
+
 
   def apply() = {
     Router(baseUrl, routerConfig)()

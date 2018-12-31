@@ -4,6 +4,7 @@ import japgolly.scalajs.react.ScalaComponent
 import japgolly.scalajs.react.vdom.html_<^._
 import scalacss.DevDefaults._
 import scalacss.ScalaCssReact._
+import scalacss.internal.FontFace
 import scalacss.internal.mutable.StyleSheet
 
 import scala.language.postfixOps
@@ -13,9 +14,9 @@ object Title {
   object Style extends StyleSheet.Inline {
     import dsl._
 
-    val font = fontFace("myFont3")(_.src("local(Pacifico)"))
+    val font: FontFace[String] = fontFace("myFont3")(_.src("local(Pacifico)"))
 
-    val self = style(
+    val self: StyleA = style(
       fontSize(20 vw),
       fontFamily(font),
       color.white,

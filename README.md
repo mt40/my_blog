@@ -11,6 +11,9 @@ This will generate folder `build`. The final site contains the folder `build`
 and the file `index.html` at the root of this repo
 (let's call this **the artifacts**)
 
+_Note: the build command is just an alias for a longer command defined in
+ `./sbtrc`_
+
 ## Run
 
 To run, you can simply serve `index.html` as a static site with a simple

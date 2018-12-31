@@ -6,3 +6,6 @@ addSbtPlugin("ch.epfl.scala" % "sbt-scalajs-bundler" % "0.14.0")
 
 // fast dependency resolution
 addSbtPlugin("io.get-coursier" % "sbt-coursier" % "1.0.3")
+
+// style check
+addSbtPlugin("org.wartremover" % "sbt-wartremover" % "2.3.7")

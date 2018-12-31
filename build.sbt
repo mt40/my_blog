@@ -33,3 +33,21 @@ lazy val copyJsProd = TaskKey[Unit]("copyJsProd", "Copy production generated fil
 
 copyJs := SbtUtils.copyGenerated(name.value, baseDirectory.value, mode = SbtUtils.RunMode.Dev)
 copyJsProd := SbtUtils.copyGenerated(name.value, baseDirectory.value)
+
+// Configure style check when compile
+Compile / wartremoverErrors ++= Seq(
+  Wart.AsInstanceOf,
+  Wart.EitherProjectionPartial,
+  Wart.IsInstanceOf,
+  Wart.NonUnitStatements,
+  Wart.Null,
+  Wart.OptionPartial,
+  Wart.Product,
+  Wart.Return,
+  Wart.Serializable,
+  Wart.StringPlusAny,
+  Wart.Throw,
+  Wart.TraversableOps,
+  Wart.TryPartial,
+  Wart.Var
+)

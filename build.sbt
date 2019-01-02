@@ -12,21 +12,46 @@ scalaJSUseMainModuleInitializer := true
 
 resolvers += Resolver.jcenterRepo
 
-libraryDependencies ++= Seq(
-  "org.scala-js" %%% "scalajs-dom" % "0.9.6",
-  "com.github.japgolly.scalajs-react" %%% "core" % "1.3.1",
-  "com.github.japgolly.scalajs-react" %%% "extra" % "1.3.1",
-  "com.github.japgolly.scalacss" %%% "core" % "0.5.5",
-  "com.github.japgolly.scalacss" %%% "ext-react" % "0.5.5",
-  "com.definitelyscala" %%% "scala-js-marked" % "1.1.0",
-  "org.scalatest" %%% "scalatest" % "3.2.0-SNAP10" % Test
-)
+libraryDependencies ++= {
+  val scalaJS = Seq(
+    "org.scala-js" %%% "scalajs-dom" % "0.9.6",
+    "com.github.japgolly.scalajs-react" %%% "core" % "1.3.1",
+    "com.github.japgolly.scalajs-react" %%% "extra" % "1.3.1",
+    "com.github.japgolly.scalacss" %%% "core" % "0.5.5",
+    "com.github.japgolly.scalacss" %%% "ext-react" % "0.5.5"
+  )
 
+  val functionalProgramming = Seq(
+    "org.typelevel" %%% "cats-macros" % "1.5.0",
+    "org.typelevel" %%% "cats-core" % "1.5.0",
+    "org.typelevel" %%% "cats-kernel" % "1.5.0",
+    "org.typelevel" %%% "cats-effect" % "1.1.0"
+  )
+
+  val utils = Seq(
+    "com.softwaremill.sttp" %%% "core" % "1.5.2",
+    "io.circe" %%% "circe-core" % "0.11.0",
+    "io.circe" %%% "circe-generic" % "0.11.0",
+    "io.circe" %%% "circe-generic-extras" % "0.11.0",
+    "io.circe" %%% "circe-parser" % "0.11.0"
+  )
+
+  val testing = Seq(
+    "org.scalatest" %%% "scalatest" % "3.2.0-SNAP10" % Test
+  )
+
+  scalaJS ++ functionalProgramming ++ utils ++ testing
+}
+
+// Some other libs from NPM
 Compile / npmDependencies ++= Seq(
   "react"     -> "16.7.0",
   "react-dom" -> "16.7.0",
   "marked"    -> "0.5.2"
 )
+
+// Disable source maps generation
+Compile / emitSourceMaps := false
 
 lazy val copyJs = TaskKey[Unit]("copyJs", "Copy generated files")
 lazy val copyJsProd = TaskKey[Unit]("copyJsProd", "Copy production generated files")
@@ -39,9 +64,7 @@ Compile / wartremoverErrors ++= Seq(
   Wart.AsInstanceOf,
   Wart.EitherProjectionPartial,
   Wart.IsInstanceOf,
-  Wart.NonUnitStatements,
   Wart.Null,
-  Wart.OptionPartial,
   Wart.Product,
   Wart.Return,
   Wart.Serializable,

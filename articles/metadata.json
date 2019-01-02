@@ -1,0 +1,18 @@
+{
+  "articles": [
+    {
+      "url": "hello.md",
+      "name": "hello",
+      "createDate": "2019-01-01",
+      "tags": ["red", "yellow"]
+    },
+    {
+      "url": "good_night/good_night.md",
+      "name": "good_night",
+      "createDate": "2019-01-04",
+      "tags": ["blue", "violet"],
+      "image": "good_night/twice.jpg",
+      "summary": "Good night, and good luck. – Edward R. Murrow"
+    }
+  ]
+}

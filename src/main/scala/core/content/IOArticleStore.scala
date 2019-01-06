@@ -10,7 +10,6 @@ class IOArticleStore(httpClient: HttpClient[IO, Response[String]]) extends Artic
 
   override def get(info: ArticleInfo): IO[Article] = {
     for {
-      _ <- IO.pure(println(s"info = $info"))
       res  <- httpClient.get(Api.article(info.url).value)
       body <- IO { res.unsafeBody }
       html <- MarkdownParser.parse(body)

@@ -18,8 +18,10 @@ object FullPost {
       val tags = p.art.info.tags.toTagMod(t => Tag(Tag.Props(t)))
 
       <.div(
-        ^.cls := "content",
-        p.art.html,
+        <.div(
+          ^.cls := "content",
+          ^.dangerouslySetInnerHtml := p.art.html
+        ),
         <.div(p.art.info.createDate),
         <.div(^.cls := "tags", tags)
       )

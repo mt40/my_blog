@@ -1,7 +1,7 @@
 package pages
 
-import components.FullPost
-import core.content.{Article, IOArticleStore}
+import components.{FullPost, SimilarList}
+import core.content.{Article, ArticleInfo, IOArticleStore, Metadata}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
@@ -12,10 +12,10 @@ object FullPostPage {
 
   case class Props(articleName: String, router: RouterCtl[PageType])
 
-  case class State(article: Article)
+  case class State(article: Article, similar: Seq[ArticleInfo])
 
   object State {
-    lazy val default: State = State(Article.empty)
+    lazy val default: State = State(Article.empty, Seq.empty)
   }
 
   class Backend(scope: BackendScope[Props, State]) {
@@ -23,7 +23,7 @@ object FullPostPage {
     def start(p: Props): Callback = {
       val store = IOArticleStore.default
 
-      Callback {
+      val getAndUpdateArticle = Callback {
         store.getMetadata
           .map(_.articles.find(_.name == p.articleName).get)
           .flatMap(store.get)
@@ -34,12 +34,45 @@ object FullPostPage {
               scope.modState(_.copy(article = art)).runNow()
           }
       }
+
+      val getAndUpdateSimilarArticles = Callback {
+        val getSimilar = store.getMetadata
+          .map { metadata =>
+            val info = metadata.articles.find(_.name == p.articleName).get
+            val similar = getSimilarArticles(metadata, info)
+            similar
+          }
+
+        getSimilar
+          .unsafeRunAsync {
+            case Left(err)  => println(err.toString)
+            case Right(sml) => scope.modState(_.copy(similar = sml)).runNow()
+          }
+      }
+
+      getAndUpdateArticle >> getAndUpdateSimilarArticles
+    }
+
+    /**
+      * Returns the top 3 articles with most common tags with the given
+      * article.
+      */
+    def getSimilarArticles(metadata: Metadata, art: ArticleInfo): Seq[ArticleInfo] = {
+      metadata.articles
+        .map { a =>
+          val commonTags = a.tags.intersect(art.tags).distinct.length
+          a -> commonTags
+        }
+        .sortBy(-_._2) // sort descending
+        .take(3)
+        .map(_._1)
     }
 
     def render(p: Props, s: State) = {
       <.div(
         ^.cls := "container",
-        FullPost(s.article, p.router)
+        FullPost(s.article),
+        SimilarList(s.similar, p.router)
       )
     }
   }

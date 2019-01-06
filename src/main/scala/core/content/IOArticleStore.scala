@@ -4,6 +4,8 @@ import cats.effect.IO
 import com.softwaremill.sttp.Response
 import common.Api
 import core.http.{HttpClient, IOHttpClient}
+import core.json.JsonParser
+import core.markdown.MarkdownParser
 import io.circe.generic.auto._
 
 class IOArticleStore(httpClient: HttpClient[IO, Response[String]]) extends ArticleStore[IO] {

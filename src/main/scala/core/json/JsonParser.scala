@@ -1,4 +1,4 @@
-package core.content
+package core.json
 
 import cats.effect.IO
 import io.circe.Decoder

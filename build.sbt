@@ -37,7 +37,8 @@ libraryDependencies ++= {
   )
 
   val testing = Seq(
-    "org.scalatest" %%% "scalatest" % "3.2.0-SNAP10" % Test
+    "org.scalatest" %%% "scalatest" % "3.2.0-SNAP10" % Test,
+    "com.github.japgolly.scalajs-react" %%% "test" % "1.3.1" % Test
   )
 
   scalaJS ++ functionalProgramming ++ utils ++ testing

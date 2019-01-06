@@ -1,4 +1,4 @@
-package core.content
+package core.markdown
 
 import cats.effect.IO
 import common.facades.marked.Marked

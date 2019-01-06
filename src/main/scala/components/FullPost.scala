@@ -1,16 +1,14 @@
 package components
 
 import core.content.Article
-import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, ScalaComponent}
-import pages._
 
 import scala.language.postfixOps
 
 object FullPost {
 
-  case class Props(art: Article, router: RouterCtl[PageType])
+  case class Props(art: Article)
 
   class Backend(scope: BackendScope[Props, Unit]) {
 
@@ -35,6 +33,5 @@ object FullPost {
       .build
   }
 
-  def apply(art: Article, router: RouterCtl[PageType]) =
-    component(Props(art, router))
+  def apply(art: Article) = component(Props(art))
 }

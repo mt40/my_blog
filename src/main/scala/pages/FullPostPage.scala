@@ -1,9 +1,9 @@
 package pages
 
-import components.{FullPost, SimilarList}
+import components.{FullPostComp, SimilarList}
 import core.content.{Article, ArticleInfo, IOArticleStore, Metadata}
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.html_<^._
+import japgolly.scalajs.react.vdom.VdomNode
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 
 import scala.language.postfixOps
@@ -20,12 +20,12 @@ object FullPostPage {
 
   class Backend(scope: BackendScope[Props, State]) {
 
-    def start(p: Props): Callback = {
+    def start(props: Props): Callback = {
       val store = IOArticleStore.default
 
       val getAndUpdateArticle = Callback {
         store.getMetadata
-          .map(_.articles.find(_.name == p.articleName).get)
+          .map(_.articles.find(_.name == props.articleName).get)
           .flatMap(store.get)
           .unsafeRunAsync {
             case Left(err) => println(err.toString)
@@ -38,7 +38,7 @@ object FullPostPage {
       val getAndUpdateSimilarArticles = Callback {
         val getSimilar = store.getMetadata
           .map { metadata =>
-            val info = metadata.articles.find(_.name == p.articleName).get
+            val info = metadata.articles.find(_.name == props.articleName).get
             val similar = getSimilarArticles(metadata, info)
             similar
           }
@@ -68,11 +68,13 @@ object FullPostPage {
         .map(_._1)
     }
 
-    def render(p: Props, s: State) = {
-      <.div(
-        ^.cls := "container",
-        FullPost(s.article),
-        SimilarList(s.similar, p.router)
+    def render(props: Props, state: State): VdomNode = {
+      import japgolly.scalajs.react.vdom.all._
+
+      div(
+        cls := "container",
+        FullPostComp(state.article),
+        SimilarList(state.similar, props.router)
       )
     }
   }

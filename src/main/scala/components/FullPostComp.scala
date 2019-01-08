@@ -6,29 +6,33 @@ import japgolly.scalajs.react.{BackendScope, ScalaComponent}
 
 import scala.language.postfixOps
 
-object FullPost {
+object FullPostComp {
 
   case class Props(art: Article)
 
   class Backend(scope: BackendScope[Props, Unit]) {
 
-    def render(p: Props) = {
-      val tags = p.art.info.tags.toTagMod(t => Tag(Tag.Props(t)))
+    def render(props: Props) = {
+      val tags = props.art.info.tags.toTagMod(TagComp(_))
 
-      <.div(
-        <.div(
-          ^.cls := "content",
-          ^.dangerouslySetInnerHtml := p.art.html
-        ),
-        <.div(p.art.info.createDate),
-        <.div(^.cls := "tags", tags)
-      )
+      {
+        import japgolly.scalajs.react.vdom.all._
+
+        div(
+          div(
+            cls := "content",
+            dangerouslySetInnerHtml := props.art.html
+          ),
+          div(props.art.info.createDate),
+          div(cls := "tags", tags)
+        )
+      }
     }
   }
 
   private val component = {
     ScalaComponent
-      .builder[Props]("Post")
+      .builder[Props]("FullPost")
       .renderBackend[Backend]
       .build
   }

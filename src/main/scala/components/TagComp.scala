@@ -5,21 +5,19 @@ import japgolly.scalajs.react.vdom.html_<^._
 
 import scala.language.postfixOps
 
-object Tag {
+object TagComp {
 
   case class Props(name: String)
 
   private val component = {
     ScalaComponent
-      .builder[Props]("Post")
+      .builder[Props]("Tag")
       .render_P { props =>
-        <.span(
-          ^.cls := "tag",
-          props.name
-        )
+        import japgolly.scalajs.react.vdom.all._
+        span(cls := "tag", props.name)
       }
       .build
   }
 
-  def apply(props: Props) = component(props)
+  def apply(name: String) = component(Props(name))
 }

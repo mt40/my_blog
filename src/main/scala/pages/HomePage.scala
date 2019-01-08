@@ -1,6 +1,6 @@
 package pages
 
-import components.Post
+import components.PostComp
 import core.content.{IOArticleStore, Metadata}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
@@ -33,11 +33,12 @@ object HomePage {
     }
 
     def render(p: Props, s: State) = {
-      val posts = s.metadata.articles.toTagMod(art => Post(art, p.router))
-      <.div(
-        ^.cls := "container",
-        posts
-      )
+      val posts = s.metadata.articles.toTagMod(art => PostComp(art, p.router))
+
+      {
+        import japgolly.scalajs.react.vdom.all._
+        div(cls := "container", posts)
+      }
     }
   }
 

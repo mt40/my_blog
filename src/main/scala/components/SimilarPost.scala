@@ -18,9 +18,10 @@ object SimilarPost {
       .render_P { props =>
         val info = props.info
         val image = info.image.map { img =>
-          val url = Api.postResource(img).value
+          val url = Api.postResource(info.id, img).value
           ImageComp(url)
         }
+        val fullPostUrl = Api.post(info.id).value
 
         {
           import japgolly.scalajs.react.vdom.all._
@@ -35,8 +36,11 @@ object SimilarPost {
                   cls := "media-content",
                   div(
                     cls := "content",
-                    props.router setOnClick FullPostPageType(info.name),
-                    h1(cls := "title", info.name),
+                    a(
+                      cls := "title",
+                      href := fullPostUrl,
+                      info.title
+                    ),
                     image,
                     info.summary.map(div(_))
                   )

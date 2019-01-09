@@ -33,7 +33,7 @@ object HomePage {
     }
 
     def render(props: Props, state: State) = {
-      val posts = state.metadata.posts.toTagMod(PostComp(_, props.router))
+      val posts = state.metadata.postsInDescDate.toTagMod(PostComp(_, props.router))
 
       {
         import japgolly.scalajs.react.vdom.all._

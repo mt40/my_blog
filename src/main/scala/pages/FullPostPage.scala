@@ -1,7 +1,7 @@
 package pages
 
 import components.{FullPostComp, SimilarList}
-import core.content.{Article, ArticleInfo, IOArticleStore, Metadata}
+import core.content.{Post, PostInfo, IOPostStore, Metadata}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.VdomNode
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
@@ -10,36 +10,36 @@ import scala.language.postfixOps
 
 object FullPostPage {
 
-  case class Props(articleName: String, router: RouterCtl[PageType])
+  case class Props(postName: String, router: RouterCtl[PageType])
 
-  case class State(article: Article, similar: Seq[ArticleInfo])
+  case class State(post: Post, similar: Seq[PostInfo])
 
   object State {
-    lazy val default: State = State(Article.empty, Seq.empty)
+    lazy val default: State = State(Post.empty, Seq.empty)
   }
 
   class Backend(scope: BackendScope[Props, State]) {
 
     def start(props: Props): Callback = {
-      val store = IOArticleStore.default
+      val store = IOPostStore.default
 
-      val getAndUpdateArticle = Callback {
+      val getAndUpdatePost = Callback {
         store.getMetadata
-          .map(_.articles.find(_.name == props.articleName).get)
+          .map(_.posts.find(_.name == props.postName).get)
           .flatMap(store.get)
           .unsafeRunAsync {
             case Left(err) => println(err.toString)
-            case Right(art) =>
-              println("Successfully fetch full article")
-              scope.modState(_.copy(article = art)).runNow()
+            case Right(post) =>
+              println("Successfully fetch full post")
+              scope.modState(_.copy(post = post)).runNow()
           }
       }
 
-      val getAndUpdateSimilarArticles = Callback {
+      val getAndUpdateSimilarPosts = Callback {
         val getSimilar = store.getMetadata
           .map { metadata =>
-            val info = metadata.articles.find(_.name == props.articleName).get
-            val similar = getSimilarArticles(metadata, info)
+            val info = metadata.posts.find(_.name == props.postName).get
+            val similar = getSimilarPosts(metadata, info)
             similar
           }
 
@@ -50,18 +50,18 @@ object FullPostPage {
           }
       }
 
-      getAndUpdateArticle >> getAndUpdateSimilarArticles
+      getAndUpdatePost >> getAndUpdateSimilarPosts
     }
 
     /**
-      * Returns the top 3 articles with most common tags with the given
-      * article.
+      * Returns the top 3 posts with most common tags with the given
+      * post.
       */
-    def getSimilarArticles(metadata: Metadata, art: ArticleInfo): Seq[ArticleInfo] = {
-      metadata.articles
-        .map { a =>
-          val commonTags = a.tags.intersect(art.tags).distinct.length
-          a -> commonTags
+    def getSimilarPosts(metadata: Metadata, info: PostInfo): Seq[PostInfo] = {
+      metadata.posts
+        .map { p =>
+          val commonTags = p.tags.intersect(info.tags).distinct.length
+          (p, commonTags)
         }
         .sortBy(-_._2) // sort descending
         .take(3)
@@ -73,7 +73,7 @@ object FullPostPage {
 
       div(
         cls := "container",
-        FullPostComp(state.article),
+        FullPostComp(state.post),
         SimilarList(state.similar, props.router)
       )
     }
@@ -89,9 +89,9 @@ object FullPostPage {
   }
 
   /**
-    * When arrive at this page, the only reliable information is the article name
-    * from the url. We use that to retrieved the metadata and the full article.
+    * When arrive at this page, the only reliable information is the post name
+    * from the url. We use that to retrieved the metadata and the full post.
     */
-  def apply(articleName: String, router: RouterCtl[PageType]) =
-    component(Props(articleName, router))
+  def apply(postName: String, router: RouterCtl[PageType]) =
+    component(Props(postName, router))
 }

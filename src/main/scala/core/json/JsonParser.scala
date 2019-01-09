@@ -5,7 +5,7 @@ import io.circe.Decoder
 import io.circe.generic.extras.Configuration
 import io.circe.parser.decode
 
-// todo: add a test to check that no article inside 'metadata.json' has the same name
+// todo: add a test to check that no post inside 'metadata.json' has the same name
 object JsonParser {
 
   // Allow default values for missing fields

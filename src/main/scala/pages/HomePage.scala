@@ -1,7 +1,7 @@
 package pages
 
 import components.PostComp
-import core.content.{IOArticleStore, Metadata}
+import core.content.{IOPostStore, Metadata}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
@@ -22,7 +22,7 @@ object HomePage {
 
     def start: Callback = {
       Callback {
-        IOArticleStore.default.getMetadata
+        IOPostStore.default.getMetadata
           .unsafeRunAsync {
             case Left(err) => println(err.toString)
             case Right(metadata) =>
@@ -32,8 +32,8 @@ object HomePage {
       }
     }
 
-    def render(p: Props, s: State) = {
-      val posts = s.metadata.articles.toTagMod(art => PostComp(art, p.router))
+    def render(props: Props, state: State) = {
+      val posts = state.metadata.posts.toTagMod(PostComp(_, props.router))
 
       {
         import japgolly.scalajs.react.vdom.all._

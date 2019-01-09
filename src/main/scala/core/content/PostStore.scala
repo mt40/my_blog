@@ -8,9 +8,9 @@ import scala.language.higherKinds
   * @see https://blog.scalac.io/exploring-tagless-final.html
   *      http://www.beyondthelines.net/programming/introduction-to-tagless-final/
   */
-trait ArticleStore[M[_]] {
+trait PostStore[M[_]] {
 
-  def get(info: ArticleInfo): M[Article]
+  def get(info: PostInfo): M[Post]
 
   def getMetadata: M[Metadata]
 }

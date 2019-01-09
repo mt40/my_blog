@@ -24,7 +24,7 @@ object AppRouter {
     // "/" -> home page
     val home = staticRoute(root, HomePageType) ~> renderR(HomePage.apply)
 
-    // "/#/post/<post_name>" -> full article page
+    // "/#/post/<post_name>" -> full post page
     val fullPost = {
       val route: Route[FullPostPageType] =
         ("#" / "post" / string("""[a-z0-9_\-]+""")).caseClass[FullPostPageType]

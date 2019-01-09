@@ -8,14 +8,14 @@ import core.json.JsonParser
 import core.markdown.MarkdownParser
 import io.circe.generic.auto._
 
-class IOArticleStore(httpClient: HttpClient[IO, Response[String]]) extends ArticleStore[IO] {
+class IOPostStore(httpClient: HttpClient[IO, Response[String]]) extends PostStore[IO] {
 
-  override def get(info: ArticleInfo): IO[Article] = {
+  override def get(info: PostInfo): IO[Post] = {
     for {
-      res  <- httpClient.get(Api.article(info.url).value)
+      res  <- httpClient.get(Api.post(info.url).value)
       body <- IO { res.unsafeBody }
       html <- MarkdownParser.parse(body)
-    } yield Article(info, body, html)
+    } yield Post(info, body, html)
   }
 
   override def getMetadata: IO[Metadata] = {
@@ -27,6 +27,6 @@ class IOArticleStore(httpClient: HttpClient[IO, Response[String]]) extends Artic
   }
 }
 
-object IOArticleStore {
-  lazy val default = new IOArticleStore(IOHttpClient)
+object IOPostStore {
+  lazy val default = new IOPostStore(IOHttpClient)
 }

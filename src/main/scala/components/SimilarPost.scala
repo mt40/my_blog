@@ -1,7 +1,7 @@
 package components
 
 import common.Api
-import core.content.ArticleInfo
+import core.content.PostInfo
 import japgolly.scalajs.react.ScalaComponent
 import japgolly.scalajs.react.extra.router.RouterCtl
 import pages.{FullPostPageType, PageType}
@@ -10,7 +10,7 @@ import scala.language.postfixOps
 
 object SimilarPost {
 
-  case class Props(info: ArticleInfo, router: RouterCtl[PageType])
+  case class Props(info: PostInfo, router: RouterCtl[PageType])
 
   private val component = {
     ScalaComponent
@@ -18,7 +18,7 @@ object SimilarPost {
       .render_P { props =>
         val info = props.info
         val image = info.image.map { img =>
-          val url = Api.articleResource(img).value
+          val url = Api.postResource(img).value
           ImageComp(url)
         }
 
@@ -49,6 +49,6 @@ object SimilarPost {
       .build
   }
 
-  def apply(info: ArticleInfo, router: RouterCtl[PageType]) =
+  def apply(info: PostInfo, router: RouterCtl[PageType]) =
     component(Props(info, router))
 }

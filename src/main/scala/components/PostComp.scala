@@ -1,7 +1,7 @@
 package components
 
 import common.Api
-import core.content.ArticleInfo
+import core.content.PostInfo
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, ScalaComponent}
@@ -11,7 +11,7 @@ import scala.language.postfixOps
 
 object PostComp {
 
-  case class Props(info: ArticleInfo, router: RouterCtl[PageType])
+  case class Props(info: PostInfo, router: RouterCtl[PageType])
 
   class Backend(scope: BackendScope[Props, Unit]) {
 
@@ -19,7 +19,7 @@ object PostComp {
       val info = props.info
       val tags = info.tags.toTagMod(TagComp(_))
       val image = info.image.map { img =>
-        val url = Api.articleResource(img).value
+        val url = Api.postResource(img).value
         ImageComp(url)
       }
 
@@ -52,6 +52,6 @@ object PostComp {
       .build
   }
 
-  def apply(info: ArticleInfo, router: RouterCtl[PageType]) =
+  def apply(info: PostInfo, router: RouterCtl[PageType]) =
     component(Props(info, router))
 }

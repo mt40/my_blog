@@ -1,6 +1,6 @@
 package core.content
 
-case class ArticleInfo(
+case class PostInfo(
   url: String,
   name: String,
   createDate: String,
@@ -9,6 +9,6 @@ case class ArticleInfo(
   summary: Option[String] = None
 )
 
-object ArticleInfo {
-  lazy val empty: ArticleInfo = ArticleInfo("", "", "", Seq.empty)
+object PostInfo {
+  lazy val empty: PostInfo = PostInfo("", "", "", Seq.empty)
 }

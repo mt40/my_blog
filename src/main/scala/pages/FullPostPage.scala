@@ -1,7 +1,7 @@
 package pages
 
 import components.{FullPostComp, SimilarList}
-import core.content.{Post, PostInfo, IOPostStore, Metadata}
+import core.content.{IOPostStore, Metadata, Post, PostInfo}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.VdomNode
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
@@ -59,6 +59,7 @@ object FullPostPage {
       */
     def getSimilarPosts(metadata: Metadata, info: PostInfo): Seq[PostInfo] = {
       metadata.posts
+        .filter(_.name != info.name) // exclude current post
         .map { p =>
           val commonTags = p.tags.intersect(info.tags).distinct.length
           (p, commonTags)
@@ -85,6 +86,10 @@ object FullPostPage {
       .initialState(State.default)
       .renderBackend[Backend]
       .componentDidMount(c => c.backend.start(c.props))
+      .componentDidUpdate { c =>
+        if(c.prevProps != c.currentProps) c.backend.start(c.currentProps)
+        else Callback.empty
+      }
       .build
   }
 

@@ -48,6 +48,10 @@ object HomePage {
       .initialState(State.default)
       .renderBackend[Backend]
       .componentDidMount(_.backend.start)
+      .componentDidUpdate { c =>
+        if(c.prevProps != c.currentProps) c.backend.start
+        else Callback.empty
+      }
       .build
   }
 

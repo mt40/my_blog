@@ -37,7 +37,13 @@ object HomePage {
 
       {
         import japgolly.scalajs.react.vdom.all._
-        div(cls := "container", posts)
+        section(
+          cls := "section",
+          div(
+            cls := "container",
+            div(cls := "column is-8 is-offset-2", posts)
+          )
+        )
       }
     }
   }

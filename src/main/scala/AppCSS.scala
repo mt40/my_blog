@@ -6,7 +6,7 @@ object AppCSS {
 
   /** Call before using any React components to load CSS. */
   def load(): Unit = {
-    GlobalRegistry.register(Title.Style)
+    GlobalRegistry.register(Title.Style, PostComp.Style)
     GlobalRegistry.onRegistration(_.addToDocument())
   }
 }

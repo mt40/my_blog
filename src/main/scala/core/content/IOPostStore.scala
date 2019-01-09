@@ -12,7 +12,7 @@ class IOPostStore(httpClient: HttpClient[IO, Response[String]]) extends PostStor
 
   override def get(info: PostInfo): IO[Post] = {
     for {
-      res  <- httpClient.get(Api.post(info.url).value)
+      res  <- httpClient.get(Api.postResource(info.id, info.file).value)
       body <- IO { res.unsafeBody }
       html <- MarkdownParser.parse(body)
     } yield Post(info, body, html)

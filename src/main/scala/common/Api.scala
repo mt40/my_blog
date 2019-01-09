@@ -9,9 +9,9 @@ object Api {
 
   def metadata: AbsUrl = Config.baseUrl / "posts/metadata.json"
 
-  def post(url: String): AbsUrl = Config.baseUrl / "posts" / url
+  def post(id: String): AbsUrl = Config.baseUrl / "#" / "post" / id
 
   /** Returns an API to get resource given a url relative to the post folder. */
-  def postResource(relativeUrl: String): AbsUrl =
-    Config.baseUrl / "posts" / relativeUrl
+  def postResource(postId: String, resourceName: String): AbsUrl =
+    Config.baseUrl / "posts" / postId / resourceName
 }

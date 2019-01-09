@@ -1,32 +1,36 @@
 {
   "posts": [
     {
-      "url": "hello.md",
-      "name": "hello",
+      "id": "hello",
+      "title": "Hello",
       "createDate": "2019-01-01",
-      "tags": ["red", "yellow"]
+      "tags": ["red", "yellow"],
+      "file": "hello.md"
     },
     {
-      "url": "good_night/good_night.md",
-      "name": "good_night",
+      "id": "good_night",
+      "title": "Good night \uD83C\uDF1B",
       "createDate": "2019-01-04",
       "tags": ["blue", "violet"],
-      "image": "good_night/twice.jpg",
+      "file": "good_night.md",
+      "image": "twice.jpg",
       "summary": "Good night, and good luck. – Edward R. Murrow"
     },
     {
-      "url": "a_10_min_intro_to_scala/a_10_min_intro_to_scala.md",
-      "name": "A 10-Minute Introduction to Scala",
+      "id": "a_10_min_intro_to_scala",
+      "title": "A 10-Minute Introduction to Scala",
       "createDate": "2018-10-31",
       "tags": ["scala"],
-      "image": "a_10_min_intro_to_scala/scala.jpg",
+      "file": "a_10_min_intro_to_scala.md",
+      "image": "scala.jpg",
       "summary": "Scala is a programming language released in 2004 by Martin Odersky. It provides support for functional programming and is designed to be ..."
     },
     {
-      "url": "tdd_might_seem_like_twice_the_work/tdd_might_seem_like_twice_the_work.md",
-      "name": "Test-driven development might seem like twice the work — but you should do it anyway",
+      "id": "tdd_might_seem_like_twice_the_work",
+      "title": "Test-driven development might seem like twice the work — but you should do it anyway",
       "createDate": "2017-08-17",
       "tags": ["programming", "TDD", "testing"],
+      "file": "tdd_might_seem_like_twice_the_work.md",
       "summary": "Isn’t Test Driven Development (TDD) twice the work? Should you do it anyway?"
     }
   ]

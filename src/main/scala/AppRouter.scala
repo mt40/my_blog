@@ -29,7 +29,7 @@ object AppRouter {
       val route: Route[FullPostPageType] =
         ("#" / "post" / string("""[a-z0-9_\-]+""")).caseClass[FullPostPageType]
       dynamicRouteCT(route) ~>
-        dynRenderR((page, router) => FullPostPage(page.postName, router))
+        dynRenderR((page, router) => FullPostPage(page.postId, router))
     }
 
     // /#/not_found

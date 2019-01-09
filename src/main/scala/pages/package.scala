@@ -13,7 +13,7 @@ package object pages {
     override def title: String = "Not found"
   }
 
-  case class FullPostPageType(postName: String) extends PageType {
-    override def title: String = postName
+  case class FullPostPageType(postId: String) extends PageType {
+    override def title: String = postId
   }
 }

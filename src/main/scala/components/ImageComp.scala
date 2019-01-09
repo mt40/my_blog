@@ -10,11 +10,11 @@ object ImageComp {
       .builder[Props]("Image")
       .render_P { props =>
         import japgolly.scalajs.react.vdom.all._
-
         figure(cls := "image is-16by9", img(src := props.url))
       }
       .build
   }
 
-  def apply(url: String) = component(Props(url))
+  def apply(url: String) =
+    component(Props(url))
 }

@@ -10,7 +10,7 @@ import scala.language.postfixOps
 
 object FullPostPage {
 
-  case class Props(postName: String, router: RouterCtl[PageType])
+  case class Props(postId: String, router: RouterCtl[PageType])
 
   case class State(post: Post, similar: Seq[PostInfo])
 
@@ -25,7 +25,7 @@ object FullPostPage {
 
       val getAndUpdatePost = Callback {
         store.getMetadata
-          .map(_.posts.find(_.name == props.postName).get)
+          .map(_.posts.find(_.id == props.postId).get)
           .flatMap(store.get)
           .unsafeRunAsync {
             case Left(err) => println(err.toString)
@@ -38,7 +38,7 @@ object FullPostPage {
       val getAndUpdateSimilarPosts = Callback {
         val getSimilar = store.getMetadata
           .map { metadata =>
-            val info = metadata.posts.find(_.name == props.postName).get
+            val info = metadata.posts.find(_.id == props.postId).get
             val similar = getSimilarPosts(metadata, info)
             similar
           }
@@ -59,7 +59,7 @@ object FullPostPage {
       */
     def getSimilarPosts(metadata: Metadata, info: PostInfo): Seq[PostInfo] = {
       metadata.posts
-        .filter(_.name != info.name) // exclude current post
+        .filterNot(_ sameAs info) // exclude current post
         .map { p =>
           val commonTags = p.tags.intersect(info.tags).distinct.length
           (p, commonTags)
@@ -94,9 +94,9 @@ object FullPostPage {
   }
 
   /**
-    * When arrive at this page, the only reliable information is the post name
+    * When arrive at this page, the only reliable information is the post id
     * from the url. We use that to retrieved the metadata and the full post.
     */
-  def apply(postName: String, router: RouterCtl[PageType]) =
-    component(Props(postName, router))
+  def apply(postId: String, router: RouterCtl[PageType]) =
+    component(Props(postId, router))
 }

@@ -1,6 +1,6 @@
 package pages
 
-import components.{HighlightPostComp, PostComp}
+import components.{AboutBlogComp, HighlightPostComp, PostComp}
 import core.content.{IOPostStore, Metadata, PostInfo}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
@@ -32,15 +32,44 @@ object HomePage {
       }
     }
 
-    def render(props: Props, state: State) = {
+    def render(props: Props, state: State): VdomNode = {
       // If there are more than 3 posts, bring the 1st 2 posts
       // to the top as highlights
       val allPosts = state.metadata.postsInDescDate
-      if(allPosts.length >= 3) {
+      val postList = if(allPosts.length >= 3) {
         renderWithHighlights(props, state, allPosts)
       }
       else {
         renderNoHighlight(props, state, allPosts)
+      }
+
+      {
+        import japgolly.scalajs.react.vdom.all._
+
+        div(
+          cls := "container",
+          div(
+            cls := "columns",
+            div(
+              cls := "column is-7 is-full-mobile is-offset-1",
+              postList
+            ),
+            div(
+              cls := "column is-3 is-hidden-mobile",
+              section(
+                cls := "section",
+                div(
+                  cls := "columns",
+                  div(cls := "is-divider-vertical"),
+                  div(
+                    cls := "column",
+                    AboutBlogComp()
+                  )
+                )
+              )
+            )
+          )
+        )
       }
     }
 
@@ -60,31 +89,21 @@ object HomePage {
 
       {
         import japgolly.scalajs.react.vdom.all._
+
         div(
           section(
             cls := "section",
             div(
-              cls := "container",
               div(
                 cls := "columns",
-                div(
-                  cls := "column is-8 is-offset-2",
-                  div(
-                    cls := "columns",
-                    div(cls := "column is-half", highlights._1),
-                    div(cls := "column is-half", highlights._2)
-                  ),
-                  div(cls := "is-divider")
-                )
+                div(cls := "column is-half", highlights._1),
+                div(cls := "column is-half", highlights._2)
               )
             )
           ),
           section(
             cls := "section",
-            div(
-              cls := "container",
-              div(cls := "column is-8 is-offset-2", others)
-            )
+            div(others)
           )
         )
       }

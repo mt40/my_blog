@@ -15,3 +15,8 @@ body {
   border-width: 1px;
   border-color: rgb(245, 245, 245);
 }
+
+.is-divider {
+  margin: 0;
+  border-width: 1px;
+}

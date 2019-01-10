@@ -73,7 +73,8 @@ object HomePage {
                     cls := "columns",
                     div(cls := "column is-half", highlights._1),
                     div(cls := "column is-half", highlights._2)
-                  )
+                  ),
+                  div(cls := "is-divider")
                 )
               )
             )

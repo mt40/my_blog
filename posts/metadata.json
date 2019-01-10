@@ -1,17 +1,19 @@
 {
   "posts": [
     {
-      "id": "hello",
-      "title": "Hello",
-      "createDate": "2019-01-01",
-      "tags": ["red", "yellow"],
-      "file": "hello.md"
+      "id": "react_v16_7",
+      "title": "React v16.7: No, This Is Not The One With Hooks",
+      "createDate": "2018-12-19",
+      "tags": ["react", "javascript"],
+      "file": "react_v16_7.md",
+      "image": "react.jpg",
+      "summary": "Our latest release includes an important performance bugfix for `React.lazy`."
     },
     {
       "id": "good_night",
       "title": "Good night \uD83C\uDF1B",
       "createDate": "2019-01-04",
-      "tags": ["blue", "violet"],
+      "tags": ["twice", "literature"],
       "file": "good_night.md",
       "image": "twice.jpg",
       "summary": "Good night, and good luck. – Edward R. Murrow"
@@ -23,7 +25,7 @@
       "tags": ["scala"],
       "file": "a_10_min_intro_to_scala.md",
       "image": "scala.jpg",
-      "summary": "Scala is a programming language released in 2004 by Martin Odersky. It provides support for functional programming and is designed to be ..."
+      "summary": "Scala is a programming language released in 2004 by Martin Odersky. It provides support for functional programming ..."
     },
     {
       "id": "tdd_might_seem_like_twice_the_work",

@@ -1,7 +1,7 @@
 package pages
 
-import components.PostComp
-import core.content.{IOPostStore, Metadata}
+import components.{HighlightPostComp, PostComp}
+import core.content.{IOPostStore, Metadata, PostInfo}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
@@ -33,7 +33,64 @@ object HomePage {
     }
 
     def render(props: Props, state: State) = {
-      val posts = state.metadata.postsInDescDate.toTagMod(PostComp(_, props.router))
+      // If there are more than 3 posts, bring the 1st 2 posts
+      // to the top as highlights
+      val allPosts = state.metadata.postsInDescDate
+      if(allPosts.length >= 3) {
+        renderWithHighlights(props, state, allPosts)
+      }
+      else {
+        renderNoHighlight(props, state, allPosts)
+      }
+    }
+
+    def renderWithHighlights(props: Props, state: State, posts: Seq[PostInfo]): VdomNode = {
+      val (highlights, others) = posts.splitAt(2) match {
+        case (tops, remaining) =>
+          val highlights = tops match {
+            case Seq(first, second) =>
+              (
+                HighlightPostComp(first, props.router),
+                HighlightPostComp(second, props.router)
+              )
+          }
+          val others = remaining.toTagMod(PostComp(_, props.router))
+          (highlights, others)
+      }
+
+      {
+        import japgolly.scalajs.react.vdom.all._
+        div(
+          section(
+            cls := "section",
+            div(
+              cls := "container",
+              div(
+                cls := "columns",
+                div(
+                  cls := "column is-8 is-offset-2",
+                  div(
+                    cls := "columns",
+                    div(cls := "column is-half", highlights._1),
+                    div(cls := "column is-half", highlights._2)
+                  )
+                )
+              )
+            )
+          ),
+          section(
+            cls := "section",
+            div(
+              cls := "container",
+              div(cls := "column is-8 is-offset-2", others)
+            )
+          )
+        )
+      }
+    }
+
+    def renderNoHighlight(props: Props, state: State, posts: Seq[PostInfo]): VdomNode = {
+      val postComps = posts.toTagMod(PostComp(_, props.router))
 
       {
         import japgolly.scalajs.react.vdom.all._
@@ -41,7 +98,7 @@ object HomePage {
           cls := "section",
           div(
             cls := "container",
-            div(cls := "column is-8 is-offset-2", posts)
+            div(cls := "column is-8 is-offset-2", postComps)
           )
         )
       }

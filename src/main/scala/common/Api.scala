@@ -7,6 +7,8 @@ import scala.language.implicitConversions
 object Api {
   private implicit def url2Absolute(url: BaseUrl): AbsUrl = url.abs
 
+  def site: AbsUrl = Config.baseUrl
+
   def metadata: AbsUrl = Config.baseUrl / "posts/metadata.json"
 
   def post(id: String): AbsUrl = Config.baseUrl / "#" / "post" / id

@@ -8,6 +8,7 @@ import pages.PageType
 
 import scala.language.postfixOps
 
+@deprecated("too hard to design a theme for this", since = "0.1")
 object HighlightPostComp {
 
   case class Props(info: PostInfo, router: RouterCtl[PageType])

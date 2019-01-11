@@ -1,10 +1,10 @@
 package pages
 
-import components.{AboutBlogComp, HighlightPostComp, PostComp}
+import components.{AboutBlogComp, HighlightPostComp, NavBarComp, PostComp}
 import core.content.{IOPostStore, Metadata, PostInfo}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
+import japgolly.scalajs.react.{BackendScope, Callback, React, ScalaComponent}
 
 import scala.language.postfixOps
 
@@ -36,34 +36,38 @@ object HomePage {
       // If there are more than 3 posts, bring the 1st 2 posts
       // to the top as highlights
       val allPosts = state.metadata.postsInDescDate
-      val postList = if(allPosts.length >= 3) {
-        renderWithHighlights(props, state, allPosts)
-      }
-      else {
-        renderNoHighlight(props, state, allPosts)
-      }
+      val postList = allPosts.toTagMod(PostComp(_, props.router))
 
       {
         import japgolly.scalajs.react.vdom.all._
 
-        div(
-          cls := "container",
-          div(
-            cls := "columns",
+        React.Fragment(
+          section(
+            cls := "section padding-top-0 padding-bot-0 border-bot-light",
             div(
-              cls := "column is-7 is-full-mobile is-offset-1",
-              postList
-            ),
+              cls := "container",
+              NavBarComp()
+            )
+          ),
+          section(
+            cls := "section",
             div(
-              cls := "column is-3 is-hidden-mobile",
-              section(
-                cls := "section",
+              cls := "container",
+              div(
+                cls := "columns",
                 div(
-                  cls := "columns",
-                  div(cls := "is-divider-vertical"),
+                  cls := "column is-7 is-full-mobile is-offset-1",
+                  postList
+                ),
+                div(
+                  cls := "column is-3 is-hidden-mobile",
                   div(
-                    cls := "column",
-                    AboutBlogComp()
+                    cls := "columns",
+                    div(cls := "is-divider-vertical"),
+                    div(
+                      cls := "column",
+                      AboutBlogComp()
+                    )
                   )
                 )
               )
@@ -73,6 +77,7 @@ object HomePage {
       }
     }
 
+    @deprecated("too hard to design a theme for this", since = "0.1")
     def renderWithHighlights(props: Props, state: State, posts: Seq[PostInfo]): VdomNode = {
       val (highlights, others) = posts.splitAt(2) match {
         case (tops, remaining) =>
@@ -104,21 +109,6 @@ object HomePage {
           section(
             cls := "section",
             div(others)
-          )
-        )
-      }
-    }
-
-    def renderNoHighlight(props: Props, state: State, posts: Seq[PostInfo]): VdomNode = {
-      val postComps = posts.toTagMod(PostComp(_, props.router))
-
-      {
-        import japgolly.scalajs.react.vdom.all._
-        section(
-          cls := "section",
-          div(
-            cls := "container",
-            div(cls := "column is-8 is-offset-2", postComps)
           )
         )
       }

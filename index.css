@@ -20,3 +20,25 @@ body {
   margin: 0;
   border-width: 1px;
 }
+
+.border-bot-light {
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+  border-bottom-color: rgb(245, 245, 245);
+}
+
+.padding-top-0 {
+  padding-top: 0;
+}
+
+.padding-bot-0 {
+  padding-bottom: 0;
+}
+
+.padding-left-0 {
+  padding-left: 0;
+}
+
+.no-shadow {
+  box-shadow: none;
+}

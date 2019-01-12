@@ -36,7 +36,7 @@ object NavBarComp {
             ),
             // the hamburger icon, which toggles the navbar menu on touch devices
             a(
-              cls := "navbar-burger burger",
+              cls := "navbar-burger",
               span(),
               span(),
               span(),

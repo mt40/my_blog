@@ -38,15 +38,15 @@ body {
 }
 
 .padding-top-0 {
-  padding-top: 0;
+  padding-top: 0 !important;
 }
 
 .padding-bot-0 {
-  padding-bottom: 0;
+  padding-bottom: 0 !important;
 }
 
 .padding-left-0 {
-  padding-left: 0;
+  padding-left: 0 !important;
 }
 
 /*Effect*/
@@ -60,6 +60,13 @@ body {
   background-repeat: repeat;
 }
 
+.bg-gradient-1 {
+  background: #1d5093; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #1d5093 0%, #559cd6 67%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #1d5093 0%,#559cd6 67%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #1d5093 0%,#559cd6 67%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
 .no-shadow {
   box-shadow: none;
 }
@@ -68,6 +75,12 @@ body {
   -webkit-box-shadow: 0 1px 0 rgba(2, 21, 33, 0.1), 0 1px 3px rgba(2, 21, 33, 0.1);
   -moz-box-shadow: 0 1px 0 rgba(2, 21, 33, 0.1), 0 1px 3px rgba(2, 21, 33, 0.1);
   box-shadow: 0 1px 0 rgba(2, 21, 33, 0.1), 0 1px 3px rgba(2, 21, 33, 0.1);
+}
+
+.tag-wall {
+  height: 100%;
+  width: 3px;
+  margin-right: 5px;
 }
 
 /*Text*/

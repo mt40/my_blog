@@ -14,7 +14,11 @@ object TagComp {
       .builder[Props]("Tag")
       .render_P { props =>
         import japgolly.scalajs.react.vdom.all._
-        span(cls := "tag", props.name)
+        span(
+          cls := "tag padding-left-0 no-bg font-san-serif",
+          span(cls := "tag-wall bg-gradient-1"),
+          props.name
+        )
       }
       .build
   }

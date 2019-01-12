@@ -2,6 +2,8 @@ body {
   font-family: 'Noto Serif', Georgia, serif;
 }
 
+/*Spacing*/
+
 .margin-bot-0 {
   margin-bottom: 0 !important;
 }
@@ -47,6 +49,8 @@ body {
   padding-left: 0;
 }
 
+/*Effect*/
+
 .no-bg {
   background-color: transparent !important;
 }
@@ -66,6 +70,12 @@ body {
   box-shadow: 0 1px 0 rgba(2, 21, 33, 0.1), 0 1px 3px rgba(2, 21, 33, 0.1);
 }
 
+/*Text*/
+
 .underline {
   text-decoration: underline;
+}
+
+.font-san-serif {
+  font-family: Arial, Helvetica, sans-serif;
 }

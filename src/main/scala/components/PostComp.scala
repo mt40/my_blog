@@ -22,7 +22,7 @@ object PostComp {
         import japgolly.scalajs.react.vdom.all._
 
         div(
-          cls := "margin-bot-m",
+          cls := "margin-bot-l",
           ImageComp(info),
           PostContentComp(info),
           div(cls := "tags", tags)

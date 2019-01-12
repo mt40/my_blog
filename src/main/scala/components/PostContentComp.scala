@@ -10,13 +10,14 @@ import scala.language.postfixOps
 
 object PostContentComp {
 
-  case class Props(info: PostInfo)
+  case class Props(info: PostInfo, isSmall: Boolean)
 
   class Backend(scope: BackendScope[Props, Unit]) {
 
     def render(props: Props): VdomNode = {
       val info = props.info
       val fullPostUrl = Api.post(info.id).value
+      val titleSize = if(props.isSmall) Some("is-size-4") else None
 
       {
         import japgolly.scalajs.react.vdom.all._
@@ -27,6 +28,7 @@ object PostContentComp {
             cls := "margin-bot-t",
             a(
               cls := "title",
+              cls :=? titleSize,
               href := fullPostUrl,
               info.title
             )
@@ -44,6 +46,6 @@ object PostContentComp {
       .build
   }
 
-  def apply(info: PostInfo): Unmounted[Props, Unit, Backend] =
-    component(Props(info))
+  def apply(info: PostInfo, isSmall: Boolean = false): Unmounted[Props, Unit, Backend] =
+    component(Props(info, isSmall))
 }

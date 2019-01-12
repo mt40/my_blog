@@ -72,7 +72,7 @@ object NavBarComp {
         }
 
         div(
-          cls := "columns",
+          cls := "columns font-san-serif",
           div(
             cls := "column is-10 is-offset-1 is-full-mobile padding-bot-0",
             nav(cls := "navbar no-bg", brand, menu)

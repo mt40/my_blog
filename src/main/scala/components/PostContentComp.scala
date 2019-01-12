@@ -22,14 +22,15 @@ object PostContentComp {
         import japgolly.scalajs.react.vdom.all._
 
         div(
-          cls := "content",
-          a(
-            cls := "title",
-            href := fullPostUrl,
-            info.title
+          cls := "content margin-bot-s",
+          div(
+            cls := "margin-bot-t",
+            a(
+              cls := "title",
+              href := fullPostUrl,
+              info.title
+            )
           ),
-          br,
-          br,
           info.summary.map(div(cls := "is-size-6", _))
         )
       }

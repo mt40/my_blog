@@ -2,12 +2,20 @@ body {
   font-family: 'Open Sans', 'Helvetica', 'Arial', 'sans-serif';
 }
 
+.margin-bot-0 {
+  margin-bottom: 0 !important;
+}
+
+.margin-bot-t {
+  margin-bottom: 1vh !important;
+}
+
 .margin-bot-s {
-  margin-bottom: 4vh;
+  margin-bottom: 3vh !important;
 }
 
 .margin-bot-m {
-  margin-bottom: 8vh;
+  margin-bottom: 8vh !important;
 }
 
 .border-light {
@@ -39,6 +47,21 @@ body {
   padding-left: 0;
 }
 
+.no-bg {
+  background-color: transparent !important;
+}
+
+.bg-rain {
+  background-image: url("assets/images/rain.jpg");
+  background-repeat: repeat;
+}
+
 .no-shadow {
   box-shadow: none;
+}
+
+.shadow-light {
+  -webkit-box-shadow: 0 1px 0 rgba(2, 21, 33, 0.1), 0 1px 3px rgba(2, 21, 33, 0.1);
+  -moz-box-shadow: 0 1px 0 rgba(2, 21, 33, 0.1), 0 1px 3px rgba(2, 21, 33, 0.1);
+  box-shadow: 0 1px 0 rgba(2, 21, 33, 0.1), 0 1px 3px rgba(2, 21, 33, 0.1);
 }

@@ -29,7 +29,7 @@ object NavBarComp {
           div(
             cls := "navbar-brand",
             a(
-              cls := "navbar-item padding-left-0",
+              cls := "navbar-item padding-left-0 no-bg",
               cls :=? isBurgerActive,
               href := Api.site.value,
               "My Blog"
@@ -56,7 +56,7 @@ object NavBarComp {
           }
 
           div(
-            cls := "navbar-menu no-shadow",
+            cls := "navbar-menu no-shadow no-bg",
             cls :=? isBurgerActive,
             div(cls := "navbar-start"),
             div(cls := "navbar-end", menuItems)
@@ -66,8 +66,8 @@ object NavBarComp {
         div(
           cls := "columns",
           div(
-            cls := "column is-10 is-offset-1 is-full-mobile",
-            nav(cls := "navbar", brand, menu)
+            cls := "column is-10 is-offset-1 is-full-mobile padding-bot-0",
+            nav(cls := "navbar no-bg", brand, menu)
           )
         )
       }

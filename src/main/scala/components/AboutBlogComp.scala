@@ -16,7 +16,7 @@ object AboutBlogComp {
 
         div(
           cls := "content is-small",
-          h1(cls := "title", "About this blog"),
+          h1(cls := "title margin-bot-t", "About this blog"),
           p(aboutThisBlog)
         )
       }

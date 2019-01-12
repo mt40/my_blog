@@ -1,3 +1,6 @@
+import components.NavBarComp
+import japgolly.scalajs.react.vdom.html_<^.VdomNode
+
 package object pages {
 
   /** Programmatic representation of a page. */
@@ -15,5 +18,20 @@ package object pages {
 
   case class FullPostPageType(postId: String) extends PageType {
     override def title: String = postId
+  }
+
+  object shared {
+
+    def renderNavBar: VdomNode = {
+      import japgolly.scalajs.react.vdom.all._
+
+      section(
+        cls := "section padding-top-0 padding-bot-0 bg-rain shadow-light",
+        div(
+          cls := "container",
+          NavBarComp()
+        )
+      )
+    }
   }
 }

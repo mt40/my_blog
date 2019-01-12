@@ -1,10 +1,11 @@
 package pages
 
-import components.{FullPostComp, SimilarList}
+import common.Config
+import components.{FullPostComp, PostContentComp}
 import core.content.{IOPostStore, Metadata, Post, PostInfo}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.VdomNode
-import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
+import japgolly.scalajs.react.{BackendScope, Callback, React, ScalaComponent}
 
 import scala.language.postfixOps
 
@@ -65,17 +66,51 @@ object FullPostPage {
           (p, commonTags)
         }
         .sortBy(-_._2) // sort descending
-        .take(3)
+        .take(Config.similarPostsCount)
         .map(_._1)
     }
 
     def render(props: Props, state: State): VdomNode = {
       import japgolly.scalajs.react.vdom.all._
 
-      div(
-        cls := "container",
-        FullPostComp(state.post),
-        SimilarList(state.similar, props.router)
+      val similarPosts = {
+        val posts = state.similar.toTagMod { post =>
+          div(cls := "column is-4", PostContentComp(post, isSmall = true))
+        }
+        div(
+          cls := "columns",
+          posts
+        )
+      }
+
+      React.Fragment(
+        shared.renderNavBar,
+        section(
+          cls := "section",
+          div(
+            cls := "container",
+            div(
+              cls := "columns",
+              div(
+                cls := "column is-10 is-full-mobile is-offset-1",
+                FullPostComp(state.post)
+              )
+            )
+          )
+        ),
+        section(
+          cls := "section has-background-light",
+          div(
+            cls := "container",
+            div(
+              cls := "columns",
+              div(
+                cls := "column is-10 is-full-mobile is-offset-1",
+                similarPosts
+              )
+            )
+          )
+        )
       )
     }
   }

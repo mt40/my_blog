@@ -13,4 +13,10 @@ object Config {
     val base = if(host.value.contains("github")) Config.projectName else ""
     host / base
   }
+
+  /**
+    * Number of similar posts to show.
+    * Changing this may break the layout.
+    */
+  val similarPostsCount = 3
 }

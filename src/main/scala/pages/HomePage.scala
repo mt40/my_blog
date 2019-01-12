@@ -3,6 +3,7 @@ package pages
 import components.{AboutBlogComp, HighlightPostComp, NavBarComp, PostComp}
 import core.content.{IOPostStore, Metadata, PostInfo}
 import japgolly.scalajs.react.extra.router.RouterCtl
+import japgolly.scalajs.react.vdom.all.{cls, div, section}
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, React, ScalaComponent}
 
@@ -42,13 +43,7 @@ object HomePage {
         import japgolly.scalajs.react.vdom.all._
 
         React.Fragment(
-          section(
-            cls := "section padding-top-0 padding-bot-0 bg-rain shadow-light",
-            div(
-              cls := "container",
-              NavBarComp()
-            )
-          ),
+          shared.renderNavBar,
           section(
             cls := "section",
             div(

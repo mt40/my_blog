@@ -1,5 +1,6 @@
 package components
 
+import common.Config
 import japgolly.scalajs.react.ScalaComponent
 
 object AboutBlogComp {
@@ -15,9 +16,15 @@ object AboutBlogComp {
         import japgolly.scalajs.react.vdom.all._
 
         div(
-          cls := "content is-small",
-          h1(cls := "title margin-bot-t", "About this blog"),
-          p(aboutThisBlog)
+          cls := "content is-small has-text-grey",
+          div(cls := "is-size-5 margin-bot-t", b("About this blog")),
+          p(aboutThisBlog),
+          div(cls := "is-size-6 underline", "Contact me"),
+          a(
+            href := s"mailto:${Config.authorEmail}",
+            "GMail ",
+            FAIconComp("far fa-envelope")
+          )
         )
       }
   }

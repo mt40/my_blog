@@ -46,13 +46,21 @@ object NavBarComp {
         }
 
         val menu = {
-          val menuItems = if(state.isBurgerActive) {
-            TagMod(
-              a(cls := "navbar-item padding-left-0", "About"),
-              a(cls := "navbar-item padding-left-0", "Night Mode \uD83C\uDF12")
+          val menuItems = {
+            val nightMode = a(
+              cls := "navbar-item padding-left-0",
+              "Night Mode ",
+              FAIconComp("fas fa-moon")
             )
-          } else {
-            a(cls := "navbar-item", "Night Mode \uD83C\uDF12")
+            if(state.isBurgerActive) {
+              TagMod(
+                a(cls := "navbar-item padding-left-0", "About"),
+                nightMode
+              )
+            }
+            else {
+              nightMode
+            }
           }
 
           div(

@@ -17,36 +17,15 @@ object PostComp {
     def render(props: Props): VdomNode = {
       val info = props.info
       val tags = info.tags.toTagMod(TagComp(_))
-      val content: VdomNode =
-        if(info.image.isEmpty) PostContentComp(info) else renderWithImage(info)
 
       {
         import japgolly.scalajs.react.vdom.all._
 
         div(
           cls := "margin-bot-m",
-          content,
+          ImageComp(info),
+          PostContentComp(info),
           div(cls := "tags", tags)
-        )
-      }
-    }
-
-    private def renderWithImage(info: PostInfo): VdomNode = {
-      val image = ImageComp(info)
-
-      {
-        import japgolly.scalajs.react.vdom.all._
-
-        div(
-          cls := "columns",
-          div(
-            cls := "column is-7",
-            image
-          ),
-          div(
-            cls := "column is-5",
-            PostContentComp(info)
-          )
         )
       }
     }

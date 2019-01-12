@@ -14,7 +14,7 @@ object ImageComp {
       .render_P { props =>
         import japgolly.scalajs.react.vdom.all._
         figure(
-          cls := "image is-3by2 margin-bot-s",
+          cls := "image is-16by9 margin-bot-s",
           img(cls := "border-light", src := props.url)
         )
       }

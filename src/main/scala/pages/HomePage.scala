@@ -43,7 +43,7 @@ object HomePage {
 
         React.Fragment(
           section(
-            cls := "section padding-top-0 padding-bot-0 border-bot-light",
+            cls := "section padding-top-0 padding-bot-0 bg-rain shadow-light",
             div(
               cls := "container",
               NavBarComp()

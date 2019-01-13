@@ -21,7 +21,11 @@ libraryDependencies ++= {
     "com.github.japgolly.scalacss" %%% "ext-react" % "0.5.5"
   )
 
-  val functionalProgramming = Seq(
+  val facades = Seq(
+    "org.querki" %%% "jquery-facade" % "1.2"
+  )
+
+  val fp = Seq(
     "org.typelevel" %%% "cats-macros" % "1.5.0",
     "org.typelevel" %%% "cats-core" % "1.5.0",
     "org.typelevel" %%% "cats-kernel" % "1.5.0",
@@ -41,14 +45,15 @@ libraryDependencies ++= {
     "com.github.japgolly.scalajs-react" %%% "test" % "1.3.1" % Test
   )
 
-  scalaJS ++ functionalProgramming ++ utils ++ testing
+  scalaJS ++ facades ++ fp ++ utils ++ testing
 }
 
 // Some other libs from NPM
 Compile / npmDependencies ++= Seq(
   "react"     -> "16.7.0",
   "react-dom" -> "16.7.0",
-  "marked"    -> "0.5.2"
+  "marked"    -> "0.5.2",
+  "jquery"    -> "3.3.1"
 )
 
 // Disable source maps generation

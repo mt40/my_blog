@@ -3,15 +3,15 @@ package pages
 import common.Config
 import components.{FullPostComp, PostContentComp}
 import core.content.{IOPostStore, Metadata, Post, PostInfo}
-import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.VdomNode
 import japgolly.scalajs.react.{BackendScope, Callback, React, ScalaComponent}
 
 import scala.language.postfixOps
+import scala.util.Try
 
 object FullPostPage {
 
-  case class Props(postId: String, router: RouterCtl[PageType])
+  case class Props(postId: String, anchor: Option[String], currentUrl: String)
 
   case class State(post: Post, similar: Seq[PostInfo])
 
@@ -33,6 +33,9 @@ object FullPostPage {
             case Right(post) =>
               println("Successfully fetch full post")
               scope.modState(_.copy(post = post)).runNow()
+
+              // if there is an internal link, scroll to the target element
+              props.anchor foreach scrollTo
           }
       }
 
@@ -44,11 +47,10 @@ object FullPostPage {
             similar
           }
 
-        getSimilar
-          .unsafeRunAsync {
-            case Left(err)  => println(err.toString)
-            case Right(sml) => scope.modState(_.copy(similar = sml)).runNow()
-          }
+        getSimilar.unsafeRunAsync {
+          case Left(err)  => println(err.toString)
+          case Right(sml) => scope.modState(_.copy(similar = sml)).runNow()
+        }
       }
 
       getAndUpdatePost >> getAndUpdateSimilarPosts
@@ -93,7 +95,7 @@ object FullPostPage {
               cls := "columns",
               div(
                 cls := "column is-10 is-full-mobile is-offset-1",
-                FullPostComp(state.post)
+                FullPostComp(state.post, props.currentUrl)
               )
             )
           )
@@ -112,6 +114,18 @@ object FullPostPage {
           )
         )
       )
+    }
+
+    private def scrollTo(id: String) = {
+      Try {
+        import common.Global.jQuery
+        val elem = jQuery(id)
+        println(s"Scroll to '$id'")
+        val offset = elem.offset().top - 100 // leave some space above
+        jQuery("html").scrollTop(offset)
+      } recover {
+        case err => println(s"Cannot scroll to '$id'.\n$err")
+      }
     }
   }
 
@@ -132,6 +146,7 @@ object FullPostPage {
     * When arrive at this page, the only reliable information is the post id
     * from the url. We use that to retrieved the metadata and the full post.
     */
-  def apply(postId: String, router: RouterCtl[PageType]) =
-    component(Props(postId, router))
+  def apply(postId: String, anchor: Option[String], currentUrl: String) = {
+    component(Props(postId, anchor, currentUrl))
+  }
 }

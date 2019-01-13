@@ -17,7 +17,7 @@ object PostContentComp {
     def render(props: Props): VdomNode = {
       val info = props.info
       val fullPostUrl = Api.post(info.id).value
-      val titleSize = if(props.isSmall) Some("is-size-4") else None
+      val titleSize = if(props.isSmall) Some("is-size-5") else None
 
       {
         import japgolly.scalajs.react.vdom.all._

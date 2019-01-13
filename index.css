@@ -126,6 +126,10 @@ body {
   height: auto; /* disable hard-coded height from Bulma */
 }
 
+.tag {
+  white-space: pre;
+}
+
 /*Text*/
 
 .underline {

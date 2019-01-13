@@ -27,7 +27,7 @@ object PostContentComp {
           div(
             cls := "margin-bot-t",
             a(
-              cls := "title",
+              cls := "title is-size-4-mobile",
               cls :=? titleSize,
               href := fullPostUrl,
               info.title

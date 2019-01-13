@@ -26,10 +26,15 @@ object AppRouter {
 
     // "/#/post/<post_name>" -> full post page
     val fullPost = {
-      val route: Route[FullPostPageType] =
-        ("#" / "post" / string("""[a-z0-9_\-]+""")).caseClass[FullPostPageType]
-      dynamicRouteCT(route) ~>
-        dynRenderR((page, router) => FullPostPage(page.postId, router))
+      val route: Route[FullPostPageType] = {
+        val builder =
+          ("#" / "post" / string("""[a-z0-9_\-]+""")) ~
+            string("""#[a-z0-9_\-]+""").option
+        builder.caseClass[FullPostPageType]
+      }
+      dynamicRouteCT(route) ~> dynRenderR { (page, router) =>
+        FullPostPage(page.postId, page.anchor, router.urlFor(page).value)
+      }
     }
 
     // /#/not_found

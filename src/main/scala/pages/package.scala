@@ -16,7 +16,8 @@ package object pages {
     override def title: String = "Not found"
   }
 
-  case class FullPostPageType(postId: String) extends PageType {
+  /** @param anchor id of a html tag to scroll to */
+  case class FullPostPageType(postId: String, anchor: Option[String]) extends PageType {
     override def title: String = postId
   }
 

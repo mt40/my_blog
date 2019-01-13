@@ -95,6 +95,16 @@ body {
   white-space: pre; /* preserve white spaces for menu items */
 }
 
+.post-anchor {
+  font-family: Arial, sans-serif;
+  font-weight: bold;
+  white-space: pre;
+  /* gradient */
+  background: -webkit-linear-gradient(-45deg, #1d5093 0%, #559cd6 67%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 /*Text*/
 
 .underline {

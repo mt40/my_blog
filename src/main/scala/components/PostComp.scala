@@ -25,6 +25,10 @@ object PostComp {
           cls := "margin-bot-l",
           ImageComp(info),
           PostContentComp(info),
+          div(
+            cls := "is-size-6 has-text-grey margin-top-t",
+            s"Published on ${info.createDate}"
+          ),
           div(cls := "tags", tags)
         )
       }

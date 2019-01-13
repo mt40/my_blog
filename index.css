@@ -92,7 +92,9 @@ body {
 }
 
 .navbar-item {
+  font-family: 'Press Start 2P', monospace;
   white-space: pre; /* preserve white spaces for menu items */
+  color: black;
 }
 
 .post-anchor {
@@ -103,6 +105,25 @@ body {
   background: -webkit-linear-gradient(-45deg, #1d5093 0%, #559cd6 67%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.site-logo {
+  color: black;
+  padding-right: 0.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  height: 4rem !important;
+  max-height: none !important; /* disable hard-coded height limit from Bulma */
+}
+
+.site-brand {
+  font-family: 'Press Start 2P', monospace;
+  background-color: black;
+  color: white;
+}
+
+.navbar-burger {
+  height: auto; /* disable hard-coded height from Bulma */
 }
 
 /*Text*/

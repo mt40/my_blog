@@ -27,7 +27,7 @@ package object pages {
       import japgolly.scalajs.react.vdom.all._
 
       section(
-        cls := "section padding-top-0 padding-bot-0 bg-rain shadow-light",
+        cls := "section padding-top-0 padding-bot-0 shadow-light",
         div(
           cls := "container",
           NavBarComp()

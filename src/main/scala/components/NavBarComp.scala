@@ -32,7 +32,8 @@ object NavBarComp {
               cls := "navbar-item padding-left-0 no-bg",
               cls :=? isBurgerActive,
               href := Api.site.value,
-              "My Blog"
+              img(cls := "site-logo", src := Api.siteLogo.value),
+              code(cls := "site-brand is-size-7", "under_the_rain")
             ),
             // the hamburger icon, which toggles the navbar menu on touch devices
             a(
@@ -48,13 +49,13 @@ object NavBarComp {
         val menu = {
           val menuItems = {
             val nightMode = a(
-              cls := "navbar-item padding-left-0",
+              cls := "navbar-item padding-left-0 is-size-7",
               "Night Mode ",
               FAIconComp("fas fa-moon")
             )
             if(state.isBurgerActive) {
               TagMod(
-                a(cls := "navbar-item padding-left-0", "About"),
+                a(cls := "navbar-item padding-left-0 is-size-7", "About"),
                 nightMode
               )
             }

@@ -22,7 +22,8 @@ libraryDependencies ++= {
   )
 
   val facades = Seq(
-    "org.querki" %%% "jquery-facade" % "1.2"
+    "org.querki" %%% "jquery-facade" % "1.2",
+    "ru.pavkin" %%% "scala-js-momentjs" % "0.9.1"
   )
 
   val fp = Seq(
@@ -53,7 +54,8 @@ Compile / npmDependencies ++= Seq(
   "react"     -> "16.7.0",
   "react-dom" -> "16.7.0",
   "marked"    -> "0.5.2",
-  "jquery"    -> "3.3.1"
+  "jquery"    -> "3.3.1",
+  "moment"    -> "2.19.2"
 )
 
 // Disable source maps generation
@@ -75,7 +77,6 @@ Compile / wartremoverErrors ++= Seq(
   Wart.Return,
   Wart.Serializable,
   Wart.StringPlusAny,
-  Wart.Throw,
   Wart.TraversableOps,
   Wart.TryPartial,
   Wart.Var

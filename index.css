@@ -130,6 +130,13 @@ body {
   white-space: pre;
 }
 
+/* the create date text in home page */
+.post-create-date {
+  display: flex !important;
+  justify-content: right !important; /* horizontal align */
+  padding-right: 0;
+}
+
 /*Text*/
 
 .underline {

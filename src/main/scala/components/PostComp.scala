@@ -26,10 +26,20 @@ object PostComp {
           ImageComp(info),
           PostContentComp(info),
           div(
-            cls := "is-size-6 has-text-grey margin-top-t",
-            s"Published on ${info.createDate}"
-          ),
-          div(cls := "tags", tags)
+            cls := "columns is-mobile",
+            div(
+              cls := "column is-6",
+              div(cls := "tags", tags)
+            ),
+            div(
+              cls := "column is-6",
+              div(
+                // use class "tag" to get the same size as the tags above
+                cls := "is-size-7 has-text-grey margin-top-t post-create-date tag no-bg",
+                s"${info.createDate.prettyString}"
+              )
+            )
+          )
         )
       }
     }

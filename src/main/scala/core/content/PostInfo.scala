@@ -1,5 +1,8 @@
 package core.content
 
+import common.Date
+import io.circe.Decoder
+
 /**
   * Represents a post.
   *
@@ -14,7 +17,7 @@ package core.content
 case class PostInfo(
   id: String,
   title: String,
-  createDate: String,
+  createDate: Date,
   tags: Seq[String],
   file: String,
   image: Option[String] = None,
@@ -33,8 +36,16 @@ object PostInfo {
   lazy val empty: PostInfo = PostInfo(
     id = "",
     title = "",
-    createDate = "",
+    createDate = Date.zero,
     tags = Seq.empty,
     file = ""
   )
+
+  /** For 'circe' to decode json. */
+  implicit def decoder: Decoder[PostInfo] = {
+    Decoder
+      .forProduct7("id", "title", "createDate", "tags", "file", "image", "summary")(
+        PostInfo.apply
+      )
+  }
 }

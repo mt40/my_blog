@@ -1,2 +1,3 @@
 alias build=;fastOptJS::webpack;copyJs
-alias build_prod=;fullOptJS::webpack;copyJsProd
+alias build_production=;fullOptJS::webpack;copyJsProd
+alias stage=build_production

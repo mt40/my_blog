@@ -113,6 +113,7 @@ body {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
   height: 4rem !important;
+  width: 4rem !important;
   max-height: none !important; /* disable hard-coded height limit from Bulma */
 }
 

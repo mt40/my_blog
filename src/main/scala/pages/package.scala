@@ -34,5 +34,10 @@ package object pages {
         )
       )
     }
+
+    def renderDisqus: VdomNode = {
+      import japgolly.scalajs.react.vdom.all._
+      div(id := "disqus_thread")
+    }
   }
 }

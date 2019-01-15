@@ -24,11 +24,11 @@ object AppRouter {
     // "/" -> home page
     val home = staticRoute(root, HomePageType) ~> renderR(HomePage.apply)
 
-    // "/#/post/<post_name>" -> full post page
+    // "/#!post/<post_name>" -> full post page
     val fullPost = {
       val route: Route[FullPostPageType] = {
         val builder =
-          ("#" / "post" / string("""[a-z0-9_\-]+""")) ~
+          ("#!post" / string("""[a-z0-9_\-]+""")) ~
             string("""#[a-z0-9_\-]+""").option
         builder.caseClass[FullPostPageType]
       }
@@ -37,8 +37,8 @@ object AppRouter {
       }
     }
 
-    // /#/not_found
-    val notFound = staticRoute("#" / "not_found", NotFoundPageType) ~> render(NotFoundPage.apply())
+    // /#!not_found
+    val notFound = staticRoute("#!not_found", NotFoundPageType) ~> render(NotFoundPage.apply())
 
     // the use of `emptyRule` is just for nice formatting
     (emptyRule

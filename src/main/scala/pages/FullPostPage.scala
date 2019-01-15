@@ -76,21 +76,7 @@ object FullPostPage {
     def render(props: Props, state: State): VdomNode = {
       import japgolly.scalajs.react.vdom.all._
 
-      val postContentSection = {
-        section(
-          cls := "section",
-          div(
-            cls := "container",
-            div(
-              cls := "columns",
-              div(
-                cls := "column is-10 is-full-mobile is-offset-1",
-                FullPostComp(state.post, props.currentUrl)
-              )
-            )
-          )
-        )
-      }
+      val postContentSection = shared.bodyWrapper(FullPostComp(state.post, props.currentUrl))
 
       val similarPostsSection = {
         val similarPosts = {
@@ -103,32 +89,18 @@ object FullPostPage {
           )
         }
 
-        section(
-          cls := "section has-background-light",
-          div(
-            cls := "container",
-            div(
-              cls := "columns",
-              div(
-                cls := "column is-10 is-full-mobile is-offset-1",
-                similarPosts
-              )
-            )
-          )
-        )
+        shared.bodyWrapper
+          .withMod(cls := "has-background-light")(similarPosts)
       }
+
+      val comments = shared.bodyWrapper
+        .withMod(cls := "has-background-light")(shared.renderDisqus)
 
       React.Fragment(
         shared.renderNavBar,
         postContentSection,
         similarPostsSection,
-        section(
-          cls := "section has-background-light",
-          div(
-            cls := "container",
-            shared.renderDisqus
-          )
-        )
+        comments
       )
     }
 

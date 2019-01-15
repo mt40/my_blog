@@ -1,4 +1,5 @@
 import components.NavBarComp
+import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.html_<^.VdomNode
 
 package object pages {
@@ -38,6 +39,52 @@ package object pages {
     def renderDisqus: VdomNode = {
       import japgolly.scalajs.react.vdom.all._
       div(id := "disqus_thread")
+    }
+
+    /**
+      * Provides consistent spacing for the given elements.
+      * Used this to wrap direct children of <body>
+      */
+//    def bodyWrapper(children: TagMod*): VdomNode = {
+//      import japgolly.scalajs.react.vdom.all._
+//
+//      section(
+//        cls := "section",
+//        div(
+//          cls := "container",
+//          div(
+//            cls := "columns",
+//            div(
+//              (cls := "column is-10 is-full-mobile is-offset-1") +: children: _*
+//            )
+//          )
+//        )
+//      )
+//    }
+
+    /**
+      * Provides consistent spacing for the given elements.
+      * Used this to wrap direct children of <body>
+      */
+    object bodyWrapper {
+
+      def withMod(mods: TagMod*)(children: TagMod*): VdomNode = {
+        import japgolly.scalajs.react.vdom.all._
+
+        val container = div(
+          cls := "container",
+          div(
+            cls := "columns",
+            div(
+              (cls := "column is-10 is-full-mobile is-offset-1") +: children: _*
+            )
+          )
+        )
+
+        section((cls := "section") +: mods :+ container: _*)
+      }
+
+      def apply(children: TagMod*): VdomNode =  withMod()(children: _*)
     }
   }
 }

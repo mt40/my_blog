@@ -59,6 +59,10 @@ body {
 
 /*Effect*/
 
+.navbar-item, .post-anchor, .tag, noscript {
+  white-space: pre;
+}
+
 .no-bg {
   background-color: transparent !important;
 }
@@ -93,14 +97,12 @@ body {
 
 .navbar-item {
   font-family: 'Press Start 2P', monospace;
-  white-space: pre; /* preserve white spaces for menu items */
   color: black;
 }
 
 .post-anchor {
   font-family: Arial, sans-serif;
   font-weight: bold;
-  white-space: pre;
   /* gradient */
   background: -webkit-linear-gradient(-45deg, #1d5093 0%, #559cd6 67%);
   -webkit-background-clip: text;
@@ -125,10 +127,6 @@ body {
 
 .navbar-burger {
   height: auto; /* disable hard-coded height from Bulma */
-}
-
-.tag {
-  white-space: pre;
 }
 
 /* the create date text in home page */

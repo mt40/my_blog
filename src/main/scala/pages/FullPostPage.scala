@@ -1,6 +1,7 @@
 package pages
 
-import common.Config
+import common.Global.jQuery
+import common.{Api, Config}
 import components.{FullPostComp, PostContentComp}
 import core.content.{IOPostStore, Metadata, Post, PostInfo}
 import japgolly.scalajs.react.vdom.VdomNode
@@ -75,18 +76,7 @@ object FullPostPage {
     def render(props: Props, state: State): VdomNode = {
       import japgolly.scalajs.react.vdom.all._
 
-      val similarPosts = {
-        val posts = state.similar.toTagMod { post =>
-          div(cls := "column is-4", PostContentComp(post, isSmall = true))
-        }
-        div(
-          cls := "columns",
-          posts
-        )
-      }
-
-      React.Fragment(
-        shared.renderNavBar,
+      val postContentSection = {
         section(
           cls := "section",
           div(
@@ -99,7 +89,20 @@ object FullPostPage {
               )
             )
           )
-        ),
+        )
+      }
+
+      val similarPostsSection = {
+        val similarPosts = {
+          val posts = state.similar.toTagMod { post =>
+            div(cls := "column is-4", PostContentComp(post, isSmall = true))
+          }
+          div(
+            cls := "columns",
+            posts
+          )
+        }
+
         section(
           cls := "section has-background-light",
           div(
@@ -113,18 +116,75 @@ object FullPostPage {
             )
           )
         )
+      }
+
+      React.Fragment(
+        shared.renderNavBar,
+        postContentSection,
+        similarPostsSection,
+        section(
+          cls := "section has-background-light",
+          div(
+            cls := "container",
+            shared.renderDisqus
+          )
+        )
       )
     }
 
     private def scrollTo(id: String) = {
       Try {
-        import common.Global.jQuery
         val elem = jQuery(id)
         println(s"Scroll to '$id'")
         val offset = elem.offset().top - 100 // leave some space above
         jQuery("html").scrollTop(offset)
       } recover {
         case err => println(s"Cannot scroll to '$id'.\n$err")
+      }
+    }
+
+    /**
+      * Loads the comment section using jQuery. This script is taken directly
+      * from Disqus (see link below).
+      * The decision to do it like this is because:
+      * <ul>
+      *   <li> adding this script tag from React doesn't work, the script is not
+      * executed
+      *   <li> there is a js component for it from the link below but implementing
+      * the facade for this is complicated
+      *   <li> we want the script to load after the page is mounted and this
+      * does just that
+      * </ul>
+      *
+      * @see https://disqus.com/admin/universalcode/
+      *      https://www.npmjs.com/package/disqus-react
+      */
+    def loadComments(postId: String) = Callback {
+      Try {
+        val script =
+          s"""
+             |<script>
+             |console.log('loading disqus');
+             |var disqus_config = function() {
+             |this.page.url = '${Api.post(postId).value}';
+             |this.page.identifier = '$postId';
+             |};
+             |/* DON'T EDIT BELOW THIS LINE */
+             |(function() {
+             |var d = document, s = d.createElement('script');
+             |s.src = 'https://undertherain.disqus.com/embed.js';
+             |s.setAttribute('data-timestamp', +new Date());
+             |(d.head || d.body).appendChild(s);
+             |})();
+             |</script>
+          """.stripMargin
+        val noScript =
+          """
+            |<noscript>
+            |  "Please enable JavaScript to view the ",
+            |  <a href := "https://disqus.com/?ref_noscript">"comments powered by Disqus."</a>
+            |</noscript>"""
+        jQuery("body").append(script).append(noScript)
       }
     }
   }
@@ -134,7 +194,9 @@ object FullPostPage {
       .builder[Props]("FullPostPage")
       .initialState(State.default)
       .renderBackend[Backend]
-      .componentDidMount(c => c.backend.start(c.props))
+      .componentDidMount { c =>
+        c.backend.start(c.props) >> c.backend.loadComments(c.props.postId)
+      }
       .componentDidUpdate { c =>
         if(c.prevProps != c.currentProps) c.backend.start(c.currentProps)
         else Callback.empty

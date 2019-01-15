@@ -1,11 +1,10 @@
 package pages
 
-import components.{AboutBlogComp, HighlightPostComp, NavBarComp, PostComp}
+import components.{AboutBlogComp, HighlightPostComp, PostComp}
 import core.content.{IOPostStore, Metadata, PostInfo}
 import japgolly.scalajs.react.extra.router.RouterCtl
-import japgolly.scalajs.react.vdom.all.{cls, div, section}
 import japgolly.scalajs.react.vdom.html_<^._
-import japgolly.scalajs.react.{BackendScope, Callback, React, ScalaComponent}
+import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 
 import scala.language.postfixOps
 
@@ -42,7 +41,7 @@ object HomePage {
       {
         import japgolly.scalajs.react.vdom.all._
 
-        React.Fragment(
+        div(
           shared.renderNavBar,
           section(
             cls := "section",

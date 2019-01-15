@@ -20,6 +20,8 @@ object FullPostPage {
     lazy val default: State = State(Post.empty, Seq.empty)
   }
 
+  private val disqusScriptClass = "disqus-script"
+
   class Backend(scope: BackendScope[Props, State]) {
 
     def start(props: Props): Callback = {
@@ -94,9 +96,9 @@ object FullPostPage {
       }
 
       val comments = shared.bodyWrapper
-        .withMod(cls := "has-background-light")(shared.renderDisqus)
+        .withMod(cls := "has-background-light padding-top-0")(shared.renderDisqus)
 
-      React.Fragment(
+      div(
         shared.renderNavBar,
         postContentSection,
         similarPostsSection,
@@ -133,13 +135,18 @@ object FullPostPage {
       */
     def loadComments(postId: String) = Callback {
       Try {
+        // remove previously inserted scripts
+        jQuery(s"body > .$disqusScriptClass").remove()
+
+        val pageUrl = (Api.site / "#!post" / postId).value // Api.post(postId).value
+        val identifier = postId
         val script =
           s"""
-             |<script>
-             |console.log('loading disqus');
+             |<script class="$disqusScriptClass">
+             |console.log("loading Disqus with url='$pageUrl', id='$identifier'");
              |var disqus_config = function() {
-             |this.page.url = '${Api.post(postId).value}';
-             |this.page.identifier = '$postId';
+             |this.page.url = '$pageUrl';
+             |this.page.identifier = '$identifier';
              |};
              |/* DON'T EDIT BELOW THIS LINE */
              |(function() {
@@ -151,11 +158,11 @@ object FullPostPage {
              |</script>
           """.stripMargin
         val noScript =
-          """
-            |<noscript>
+          s"""
+            |<noscript class="$disqusScriptClass">
             |  "Please enable JavaScript to view the ",
             |  <a href := "https://disqus.com/?ref_noscript">"comments powered by Disqus."</a>
-            |</noscript>"""
+            |</noscript>""".stripMargin
         jQuery("body").append(script).append(noScript)
       }
     }
@@ -170,7 +177,9 @@ object FullPostPage {
         c.backend.start(c.props) >> c.backend.loadComments(c.props.postId)
       }
       .componentDidUpdate { c =>
-        if(c.prevProps != c.currentProps) c.backend.start(c.currentProps)
+        if(c.prevProps != c.currentProps) {
+          c.backend.start(c.currentProps) >> c.backend.loadComments(c.currentProps.postId)
+        }
         else Callback.empty
       }
       .build

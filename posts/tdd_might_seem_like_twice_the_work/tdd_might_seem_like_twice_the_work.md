@@ -1,5 +1,3 @@
-# Test-driven development might seem like twice the work — but you should do it anyway
-
 Isn’t Test Driven Development (TDD) twice the work? Should you do it anyway?
 
 The short answer to the first question is NO. On the surface, it may seem like without TDD, time is only required to create the feature. With TDD, you need time to create the test AND create the feature, thus doubling the development time required.

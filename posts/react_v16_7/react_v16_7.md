@@ -1,4 +1,4 @@
-# React v16.7: No, This Is Not The One With Hooks
+![React logo][react]
 
 Our latest release includes an important performance bugfix for `React.lazy`. Although there are no API changes, we’re releasing it as a minor instead of a patch.
 
@@ -37,3 +37,4 @@ We also provide UMD builds of React via a CDN:
 - Fix fallback to setTimeout in testing environments. (@bvaughn in #14358)
 - Add methods for debugging. (@mrkev in #14053)
 
+[react]: react.jpg

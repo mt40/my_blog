@@ -4,15 +4,21 @@ import common.Global.jQuery
 import common.{Api, Config}
 import components.{FullPostComp, PostContentComp}
 import core.content.{IOPostStore, Metadata, Post, PostInfo}
+import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.VdomNode
-import japgolly.scalajs.react.{BackendScope, Callback, React, ScalaComponent}
+import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 
 import scala.language.postfixOps
 import scala.util.Try
 
 object FullPostPage {
 
-  case class Props(postId: String, anchor: Option[String], currentUrl: String)
+  case class Props(
+    postId: String,
+    anchor: Option[String],
+    currentUrl: String,
+    router: RouterCtl[PageType]
+  )
 
   case class State(post: Post, similar: Seq[PostInfo])
 
@@ -32,7 +38,10 @@ object FullPostPage {
           .map(_.posts.find(_.id == props.postId).get)
           .flatMap(store.get)
           .unsafeRunAsync {
-            case Left(err) => println(err.toString)
+            case Left(err) => {
+              println(err.toString)
+              props.router.set(PostNotFoundPageType).runNow()
+            }
             case Right(post) =>
               println("Successfully fetch full post")
               scope.modState(_.copy(post = post)).runNow()
@@ -189,7 +198,12 @@ object FullPostPage {
     * When arrive at this page, the only reliable information is the post id
     * from the url. We use that to retrieved the metadata and the full post.
     */
-  def apply(postId: String, anchor: Option[String], currentUrl: String) = {
-    component(Props(postId, anchor, currentUrl))
+  def apply(
+    postId: String,
+    anchor: Option[String],
+    currentUrl: String,
+    router: RouterCtl[PageType]
+  ) = {
+    component(Props(postId, anchor, currentUrl, router))
   }
 }

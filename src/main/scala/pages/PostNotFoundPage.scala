@@ -15,11 +15,11 @@ object PostNotFoundPage {
             cls := "hero-body",
             div(
               cls := "container",
-              h1(cls := "title font-8bit margin-bot-s", "Page not found"),
+              h1(cls := "title font-8bit margin-bot-s", "Post not found :("),
               a(
                 cls := "is-size-5 font-8bit underline",
                 href := Api.site.value,
-                "<- back to under_the_rain"
+                "<- back to home page"
               )
             )
           )

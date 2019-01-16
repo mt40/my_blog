@@ -1,5 +1,3 @@
-# A 10-Minute Introduction to Scala
-
 ![Scala logo][logo]
 
 Scala is a programming language released in 2004 by Martin Odersky. It provides support for functional programming and is designed to be concise and compiled to Java bytecode so that a Scala application can be executed on a Java Virtual Machine (JVM).

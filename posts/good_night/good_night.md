@@ -1,5 +1,3 @@
-# Good night 🌛
-
 > Good night, and good luck. – Edward R. Murrow
 
 Sample list

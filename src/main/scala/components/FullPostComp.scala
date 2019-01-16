@@ -36,7 +36,8 @@ object FullPostComp {
         div(
           div(
             cls := s"content $fullContentClassName",
-            dangerouslySetInnerHtml := props.post.html
+            h1(cls := "margin-bot-m", props.post.info.title),
+            div(dangerouslySetInnerHtml := props.post.html)
           ),
           div(
             cls := "is-italic has-text-grey-light margin-top-l",

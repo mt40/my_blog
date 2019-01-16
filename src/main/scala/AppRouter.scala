@@ -33,7 +33,7 @@ object AppRouter {
         builder.caseClass[FullPostPageType]
       }
       dynamicRouteCT(route) ~> dynRenderR { (page, router) =>
-        FullPostPage(page.postId, page.anchor, router.urlFor(page).value)
+        FullPostPage(page.postId, page.anchor, router.urlFor(page).value, router)
       }
     }
 

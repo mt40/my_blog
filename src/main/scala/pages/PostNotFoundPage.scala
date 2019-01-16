@@ -3,7 +3,7 @@ package pages
 import common.Api
 import japgolly.scalajs.react.ScalaComponent
 
-object NotFoundPage {
+object PostNotFoundPage {
   private val component = {
     ScalaComponent
       .static("NotFoundPage") {

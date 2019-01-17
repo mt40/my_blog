@@ -136,6 +136,17 @@ body {
   padding-right: 0;
 }
 
+.content-img-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.content-img {
+  max-height: 300px;
+  height: auto;
+  width: auto;
+}
+
 /*Text*/
 
 .underline {

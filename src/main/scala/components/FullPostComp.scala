@@ -1,12 +1,12 @@
 package components
 
+import common.Api
 import common.Global.jQuery
 import core.content.Post
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 
 import scala.language.postfixOps
-import scala.util.Try
 
 object FullPostComp {
 
@@ -24,6 +24,8 @@ object FullPostComp {
     */
   private val fullContentClassName = "full-content"
   private val anchorClassName = "post-anchor"
+  private val imageClassName = "content-img"
+  private val imageWrapperClassName = "content-img-wrapper"
 
   class Backend(scope: BackendScope[Props, Unit]) {
 
@@ -53,36 +55,68 @@ object FullPostComp {
     }
 
     /**
+      * Edits the html of the post content to improve UI
+      * and add some functionality.
+      * Since this is just an extra feature, we swallow all errors
+      * so that the app doesn't crash.
+      */
+    def editContentHtml(props: Props): Callback = {
+      val cb = for {
+        _ <- addAnchors(props)
+        _ <- fixImageUrls(props)
+      } yield ()
+
+      cb.attempt.map {
+        case Left(err) => println(err)
+        case Right(_)  =>
+      }
+    }
+
+    /**
       * Adds anchors that allow jumping to headers in the page.
       * Only tag 'h2' will be updated since we don't want
       * to pollute the UI.
       */
-    def addAnchors(props: Props): Callback = Callback {
-      Try {
-        val headers = jQuery(s".$fullContentClassName h2")
-          .filter(":not(:has(a))") // already added
+    private def addAnchors(props: Props): Callback = Callback {
+      val headers = jQuery(s".$fullContentClassName h2")
+        .filter(":not(:has(a))") // already added
 
-        headers.foreach { header =>
-          val originalText = header.textContent
-          val headerId = s"#${header.id}"
-          val ref ={
-            val url = props.currentUrl
-            // if url already has header id, remove it
-            val sanitized = if(url.count(_ == '#') >= 2) {
-              url.splitAt(url.lastIndexOf('#'))._1
-            }
-            else {
-              url
-            }
-            sanitized + headerId
+      headers.foreach { header =>
+        val originalText = header.textContent
+        val headerId = s"#${header.id}"
+        val ref = {
+          val url = props.currentUrl
+          // if url already has header id, remove it
+          val sanitized = if(url.count(_ == '#') >= 2) {
+            url.splitAt(url.lastIndexOf('#'))._1
           }
-          val anchor = s"""<a class="$anchorClassName" href="$ref"># </a>"""
-          header.innerHTML = s"""$anchor$originalText"""
+          else {
+            url
+          }
+          sanitized + headerId
         }
-      } recover {
-        // don't crash because of this
-        case err => println(err)
+        val anchor = s"""<a class="$anchorClassName" href="$ref"># </a>"""
+        header.innerHTML = s"""$anchor$originalText"""
       }
+    }
+
+    /**
+      * Add these fixes:
+      * - Replace existing url with an absolute url
+      * - Wrap 'img' tag in a 'div' to help styling.
+      */
+    private def fixImageUrls(props: Props): Callback = Callback {
+      // select all 'img' tags with attribute 'alt' starts with a prefix
+      // indicating that this image should be served by us
+      val images = jQuery(s".$fullContentClassName img")
+        .filter("[alt^='image.']")
+      images foreach { img =>
+        val originalUrl = img.getAttribute("src")
+        val correctUrl = Api.postResource(props.post.info.id, originalUrl).value
+        img.setAttribute("src", correctUrl)
+        img.setAttribute("class", imageClassName)
+      }
+      images.wrap(s"""<div class="$imageWrapperClassName"></div>""")
     }
   }
 
@@ -90,9 +124,9 @@ object FullPostComp {
     ScalaComponent
       .builder[Props]("FullPost")
       .renderBackend[Backend]
-      .componentDidMount(c => c.backend.addAnchors(c.props))
+      .componentDidMount(c => c.backend.editContentHtml(c.props))
       .componentDidUpdate { c =>
-        if(c.prevProps != c.currentProps) c.backend.addAnchors(c.currentProps)
+        if(c.prevProps != c.currentProps) c.backend.editContentHtml(c.currentProps)
         else Callback.empty
       }
       .build

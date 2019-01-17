@@ -1,4 +1,4 @@
-![React logo][react]
+![image.react_logo][react]
 
 Our latest release includes an important performance bugfix for `React.lazy`. Although there are no API changes, we’re releasing it as a minor instead of a patch.
 

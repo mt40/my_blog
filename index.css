@@ -139,12 +139,13 @@ body {
 .content-img-wrapper {
   display: flex;
   justify-content: center;
+  align-items: flex-start;
 }
 
 .content-img {
-  max-height: 300px;
+  max-height: 30vh;
+  max-width: 100%;
   height: auto;
-  width: auto;
 }
 
 /*Text*/

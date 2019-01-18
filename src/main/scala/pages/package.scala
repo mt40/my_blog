@@ -22,6 +22,10 @@ package object pages {
     override def title: String = postId
   }
 
+  case object UnderConstructionPageType extends PageType {
+    override def title: String = "Under construction"
+  }
+
   object shared {
 
     def renderNavBar: VdomNode = {
@@ -40,27 +44,6 @@ package object pages {
       import japgolly.scalajs.react.vdom.all._
       div(id := "disqus_thread")
     }
-
-    /**
-      * Provides consistent spacing for the given elements.
-      * Used this to wrap direct children of <body>
-      */
-//    def bodyWrapper(children: TagMod*): VdomNode = {
-//      import japgolly.scalajs.react.vdom.all._
-//
-//      section(
-//        cls := "section",
-//        div(
-//          cls := "container",
-//          div(
-//            cls := "columns",
-//            div(
-//              (cls := "column is-10 is-full-mobile is-offset-1") +: children: _*
-//            )
-//          )
-//        )
-//      )
-//    }
 
     /**
       * Provides consistent spacing for the given elements.

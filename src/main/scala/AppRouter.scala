@@ -22,7 +22,10 @@ object AppRouter {
     import dsl._
 
     // "/" -> home page
-    val home = staticRoute(root, HomePageType) ~> renderR(HomePage.apply)
+    val home = staticRoute(root, HomePageType) ~> {
+      if(Config.isLive) render(UnderConstructionPage())
+      else renderR(HomePage.apply)
+    }
 
     // "/#!post/<post_name>" -> full post page
     val fullPost = {

@@ -11,4 +11,4 @@ Sample [link][link]
 
 Sample video
 
-[![IMAGE ALT TEXT HERE](http://img.youtube.com/vi/CfUGjK6gGgs/0.jpg)](http://www.youtube.com/watch?v=CfUGjK6gGgs)
+<iframe src="https://www.youtube-nocookie.com/embed/CfUGjK6gGgs"></iframe>

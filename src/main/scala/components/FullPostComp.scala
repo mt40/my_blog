@@ -7,6 +7,7 @@ import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 
 import scala.language.postfixOps
+import scala.scalajs.js
 
 object FullPostComp {
 
@@ -26,6 +27,9 @@ object FullPostComp {
   private val anchorClassName = "post-anchor"
   private val imageClassName = "content-img"
   private val imageWrapperClassName = "content-img-wrapper"
+  private val videoClassName = "content-video"
+  private val videoWrapperClassName = "content-video-wrapper"
+  private val videoSize = (640, 360) // width x height
 
   class Backend(scope: BackendScope[Props, Unit]) {
 
@@ -64,6 +68,7 @@ object FullPostComp {
       val cb = for {
         _ <- addAnchors(props)
         _ <- fixImageUrls(props)
+        _ <- fixVideos(props)
       } yield ()
 
       cb.attempt.map {
@@ -117,6 +122,31 @@ object FullPostComp {
         img.setAttribute("class", imageClassName)
       }
       images.wrap(s"""<div class="$imageWrapperClassName"></div>""")
+    }
+
+    /**
+      * Add these fixes:
+      * - specify video player option (e.g. autoplay)
+      * - set size to 640x360 (16:9)
+      * - wrap in a 'div' to help styling
+      *
+      * @note only Youtube videos are supported.
+      *       @see
+      */
+    private def fixVideos(props: Props): Callback = Callback {
+      jQuery(s".$fullContentClassName iframe")
+        .attr(
+          js.Dictionary(
+            "class"              -> videoClassName,
+            "frameborder"        -> "0",
+            "autoplay"           -> "0",
+            "allowfullscreen"    -> "1",
+            "picture-in-picture" -> "1", // allows minimizing the player
+            "width"              -> videoSize._1.toString,
+            "height"             -> videoSize._2.toString
+          )
+        )
+        .wrap(s"""<div class="$videoWrapperClassName"></div>""")
     }
   }
 

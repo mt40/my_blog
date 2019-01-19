@@ -1,0 +1,209 @@
+// for syntax, see: https://sass-lang.com/guide
+
+// fonts
+$text_font: 'Noto Serif', Georgia, serif;
+$theme_font: 'Press Start 2P', monospace;
+$san_serif_font: Arial, Helvetica, sans-serif;
+
+// colors
+$light_gray: rgb(245, 245, 245); // for borders, dividers
+$transparent_black: rgba(2, 21, 33, 0.1); // for shadows
+$dark_blue: #1d5093;
+$blue_gradient: -webkit-linear-gradient(-45deg, #1d5093 0%, #559cd6 67%);
+$theme_color: black;
+
+// spacing (used in margin & padding rules)
+$tiny_space: 1vh;
+$small_space: 3vh;
+$medium_space: 5vh;
+$large_space: 8vh;
+
+// sizes
+$content_img_max_height: 30vh;
+$content_img_max_width: 100%;
+$border_width: 1px;
+
+// mixins
+@mixin shadow($color) {
+  -webkit-box-shadow: 0 1px 0 $color, 0 1px 3px $color;
+  -moz-box-shadow: 0 1px 0 $color, 0 1px 3px $color;
+  box-shadow: 0 1px 0 $color, 0 1px 3px $color;
+}
+
+@mixin text_gradient($gradient_color) {
+  background: $gradient_color;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+// abstract rules
+%has_theme_font{
+  font-family: $theme_font;
+}
+
+// -------------
+// Rules
+// -------------
+
+// Generic
+
+.margin-bot-0 {
+  margin-bottom: 0 !important;
+}
+
+.margin-bot-t {
+  margin-bottom: $tiny_space !important;
+}
+
+.margin-bot-s {
+  margin-bottom: $small_space !important;
+}
+
+.margin-bot-m {
+  margin-bottom: $medium_space !important;
+}
+
+.margin-bot-l {
+  margin-bottom: $large_space !important;
+}
+
+.margin-top-l {
+  margin-top: $large_space !important;
+}
+
+.padding-top-0 {
+  padding-top: 0 !important;
+}
+
+.padding-bot-0 {
+  padding-bottom: 0 !important;
+}
+
+.padding-left-0 {
+  padding-left: 0 !important;
+}
+
+.border-light {
+  border-style: solid;
+  border-width: $border_width;
+  border-color: $light_gray;
+}
+
+.border-bot-light {
+  border-bottom-style: solid;
+  border-bottom-width: $border_width;
+  border-bottom-color: $light_gray;
+}
+
+.no-bg {
+  background-color: transparent !important;
+}
+
+.no-shadow {
+  box-shadow: none;
+}
+
+.shadow-light {
+  @include shadow($transparent_black);
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.font-san-serif {
+  font-family: $san_serif_font;
+}
+
+.font-8bit {
+  @extend %has_theme_font;
+}
+
+// Specific elements
+
+.is-divider {
+  margin: 0;
+  border-width: $border_width;
+}
+
+.navbar-item, .post-anchor, .tag, noscript {
+  white-space: pre;
+}
+
+.tag-wall {
+  height: 80%;
+  width: 3px;
+  margin-right: 5px;
+}
+
+.navbar-item {
+  @extend %has_theme_font;
+  color: $theme_color;
+}
+
+.post-anchor {
+  font-family: $san_serif_font;
+  font-weight: bold;
+  @include text_gradient($blue_gradient);
+}
+
+.site-logo {
+  color: $theme_color;
+  padding-right: 0.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  height: 4rem !important;
+  width: 4rem !important;
+  max-height: none !important; // disable hard-coded height limit from Bulma
+}
+
+.site-brand {
+  @extend %has_theme_font;
+  background-color: $theme_color;
+  color: white;
+}
+
+.navbar-burger {
+  height: auto; // disable hard-coded height from Bulma
+}
+
+// the create date text in home page
+.post-create-date {
+  display: flex !important;
+  justify-content: right !important; // horizontal align
+  padding-right: 0;
+}
+
+.content-img-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.content-img {
+  max-height: 30vh;
+  max-width: 100%;
+  height: auto;
+}
+
+// both rule for the video and its wrapper are required to make it responsive
+// @see https://gist.github.com/jaicab/8799764
+.content-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto; /* horizontal center */
+  width: 100%;
+  height: 100%;
+  max-width: 640px;
+  max-height: 360px;
+}
+
+.content-video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /*16:9*/
+  padding-top: 30px;
+  height: 0;
+  overflow: hidden;
+}

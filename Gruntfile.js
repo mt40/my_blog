@@ -60,6 +60,43 @@ module.exports = function (grunt) {
           }
         ]
       }
+    },
+
+    // https://www.npmjs.com/package/grunt-size-report
+    size_report: {
+      images: {
+        options: {
+          header: 'Images size report'
+        },
+        files: {
+          list: ['assets/images/**/*']
+        }
+      },
+      css: {
+        options: {
+          header: 'CSS size report'
+        },
+        files: {
+          list: ['build/css/*.css']
+        }
+      },
+      js: {
+        options: {
+          header: 'JavaScript size report'
+        },
+        files: {
+          list: ['build/js/*.js']
+        }
+      },
+      content: {
+        options: {
+          header: 'Content (blog posts) size report',
+          showStatistics: true
+        },
+        files: {
+          list: ['posts/**/*']
+        }
+      }
     }
   });
 
@@ -67,10 +104,14 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-sass');
+  grunt.loadNpmTasks('grunt-size-report');
 
   // for dev, run `grunt dev`
   // for production, run `grunt production`
-  grunt.registerTask('dev', ['shell:scalajs_dev', 'uglify', 'sass']);
-  grunt.registerTask('production', ['shell:scalajs_production', 'uglify', 'sass']);
+  var scalajs_dev = ['shell:scalajs_dev'];
+  var scalajs_production = ['shell:scalajs_production'];
+  var others = ['uglify', 'sass', 'size_report'];
+  grunt.registerTask('dev', scalajs_dev.concat(others));
+  grunt.registerTask('production', scalajs_production.concat(others));
 
 };

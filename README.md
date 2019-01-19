@@ -15,7 +15,11 @@ and the file `index.html` at the root of this repo
 
 This is done by [Grunt][grunt] and build definitions are in `Gruntfile.js`.
 
-*We don't use [sbt][sbt] to build because it is too heavy, especially on laptops which doesn't have good specs*
+Notes:
+- We don't use [sbt][sbt] to build because it is too heavy, especially on laptops which doesn't have good specs.
+- It is important that packages in `package.json` are declared in
+ `dependencies` section because Heroku will remove packages in
+  `devDependencies` before our build process completes.
 
 ## Run
 

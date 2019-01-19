@@ -3,7 +3,7 @@
     "node": "11.6",
     "npm": "6.5"
   },
-  "devDependencies": {
+  "dependencies": {
     "grunt": "1.0",
     "grunt-contrib-uglify": "4.0",
     "grunt-sass": "3.0",
@@ -14,7 +14,6 @@
   "scripts": {
     "start": "",
     "build_dev": "grunt dev",
-    "build_production": "grunt production",
-    "postinstall": "npm run build_production"
+    "build_production": "grunt production"
   }
 }

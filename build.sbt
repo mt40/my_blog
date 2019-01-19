@@ -59,6 +59,20 @@ Compile / npmDependencies ++= Seq(
 // Disable source maps generation
 Compile / emitSourceMaps := false
 
+/**
+  * Because Heroku requires a Scala app to have a task named
+  * 'stage' so that it could run 'sbt stage' to build the app.
+  * But since we are already using 'npm' to build, we just add
+  * the task to make Heroku happy, this task simply calls npm
+  * build command.
+  */
+lazy val stage = TaskKey[Unit]("stage", "Dummy task for Heroku")
+stage := {
+  import scala.sys.process._
+  "npm run build_production".!
+}
+
+
 // Configure style check when compile
 Compile / wartremoverErrors ++= Seq(
   Wart.AsInstanceOf,

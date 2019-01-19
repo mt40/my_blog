@@ -61,12 +61,6 @@ Compile / npmDependencies ++= Seq(
 // Disable source maps generation
 Compile / emitSourceMaps := false
 
-lazy val copyJs = TaskKey[Unit]("copyJs", "Copy generated files")
-lazy val copyJsProd = TaskKey[Unit]("copyJsProd", "Copy production generated files")
-
-copyJs := SbtUtils.copyGenerated(name.value, baseDirectory.value, mode = SbtUtils.RunMode.Dev)
-copyJsProd := SbtUtils.copyGenerated(name.value, baseDirectory.value)
-
 // Configure style check when compile
 Compile / wartremoverErrors ++= Seq(
   Wart.AsInstanceOf,

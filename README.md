@@ -2,17 +2,20 @@ This blog is a static site implemented entirely using Scala.
 
 ## Build
 
-You can build this site using [SBT][sbt] by running:
+Scala code and Sass scripts can be built with:
 ```bash
-sbt build
+npm run build_production
+# or
+npm run build_dev
 ```
 
 This will generate folder `build`. The final site contains the folder `build`
 and the file `index.html` at the root of this repo
 (let's call this **the artifacts**)
 
-_Note: the build command is just an alias for a longer command defined in
- `./sbtrc`_
+This is done by [Grunt][grunt] and build definitions are in `Gruntfile.js`.
+
+*We don't use [sbt][sbt] to build because it is too heavy, especially on laptops which doesn't have good specs*
 
 ## Run
 
@@ -22,15 +25,14 @@ http server like [NPM http-server][npm_hs]
 ## Development flow
 
 - Use [IntelliJ] as an IDE for coding.
-- Use SBT as your build tool. In your terminal, run `sbt` to start sbt console
- and run `~build` to watch for code changes and rebuild automatically.
+- Build the project.
 - Assuming you are using [http-server][npm_hs], serve the site with
 `http-server -p 3000 .`.
 - Type `localhost:3000` in your browser to see the site.
-- Now, if you change the code or `./index.html`, SBT will rebuild the site.
 After refresh, you should be able to see the updated site in your browser.
 
 
+[grunt]: https://gruntjs.com/
 [sbt]: https://www.scala-sbt.org/download.html
 [npm_hs]: https://www.npmjs.com/package/http-server
 [intellij]: https://www.jetbrains.com/idea/

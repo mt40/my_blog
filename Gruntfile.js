@@ -112,5 +112,6 @@ module.exports = function (grunt) {
   var production = ['shell:scalajs_production', 'sass', 'uglify', 'size_report'];
   grunt.registerTask('dev', dev);
   grunt.registerTask('production', production);
+  grunt.registerTask('build_sass', ['sass']);
 
 };

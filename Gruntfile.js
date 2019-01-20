@@ -108,10 +108,9 @@ module.exports = function (grunt) {
 
   // for dev, run `grunt dev`
   // for production, run `grunt production`
-  var scalajs_dev = ['shell:scalajs_dev'];
-  var scalajs_production = ['shell:scalajs_production'];
-  var others = ['uglify', 'sass', 'size_report'];
-  grunt.registerTask('dev', scalajs_dev.concat(others));
-  grunt.registerTask('production', scalajs_production.concat(others));
+  var dev = ['shell:scalajs_dev', 'sass'];
+  var production = ['shell:scalajs_production', 'sass', 'uglify', 'size_report'];
+  grunt.registerTask('dev', dev);
+  grunt.registerTask('production', production);
 
 };

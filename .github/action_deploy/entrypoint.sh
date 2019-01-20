@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
+#!/bin/sh -l
 
-set -eu
-
-echo "Hello there"
+sh -c "echo $*"

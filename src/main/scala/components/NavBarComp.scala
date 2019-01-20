@@ -55,7 +55,11 @@ object NavBarComp {
             )
             if(state.isBurgerActive) {
               TagMod(
-                a(cls := "navbar-item padding-left-0 is-size-7", "About"),
+                a(
+                  cls := "navbar-item padding-left-0 is-size-7",
+                  href := Api.about.value,
+                  "About"
+                ),
                 nightMode
               )
             }

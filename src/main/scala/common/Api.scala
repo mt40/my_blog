@@ -9,6 +9,8 @@ object Api {
 
   def site: AbsUrl = Config.baseUrl
 
+  def about: AbsUrl = Config.baseUrl / "#!about"
+
   def metadata: AbsUrl = Config.baseUrl / "posts/metadata.json"
 
   def post(id: String): AbsUrl = Config.baseUrl / "#!post" / id

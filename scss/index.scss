@@ -121,13 +121,17 @@ $border_width: 1px;
 
 // Specific elements
 
+body {
+  font-family: $text_font;
+}
+
 .is-divider {
   margin: 0;
   border-width: $border_width;
 }
 
-.navbar-item, .post-anchor, .tag, noscript {
-  white-space: pre;
+.navbar-item, .post-anchor, .tag, p, noscript {
+  white-space: pre-wrap;
 }
 
 .tag-wall {

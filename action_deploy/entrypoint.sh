@@ -1,3 +1,4 @@
-#!/bin/sh -l
+#!/usr/bin/env bash
 
-sh -c "echo $*"
+echo "Hello world"
+echo $@

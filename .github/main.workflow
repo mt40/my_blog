@@ -4,6 +4,5 @@ workflow "Build and deploy" {
 }
 
 action "deploy" {
-  uses = "./action_deploy/",
-  args = "Hello world"
+  uses = "./.github/action_deploy/"
 }

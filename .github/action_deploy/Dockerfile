@@ -1,5 +1,4 @@
 FROM ubuntu:18.04
-#FROM debian:9.5-slim
 
 LABEL "com.github.actions.name"="Deploy ScalaJS app"
 LABEL "com.github.actions.description"="Build and deploy ScalaJS app using sbt & npm"

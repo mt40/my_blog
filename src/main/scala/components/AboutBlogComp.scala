@@ -5,10 +5,14 @@ import japgolly.scalajs.react.ScalaComponent
 
 object AboutBlogComp {
   private val aboutThisBlog =
-    """Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      | Cras aliquet nunc nulla, non fermentum lacus tempor in.
-      | Mauris placerat venenatis massa, sed rutrum magna placerat eu.
-      | Maecenas aliquam, odio sit amet porta efficitur.""".stripMargin
+    """This blog saves the experience I have on the way trying to
+      |become a better programmer. This includes introductions, tutorials,
+      |career lessons, and bugs 🐞.
+      |
+      |If you are reading this, I hope that you will find something
+      |useful for yourself.
+      |
+      |Happy coding 👨‍💻""".stripMargin
 
   private val component = {
     ScalaComponent
@@ -22,8 +26,14 @@ object AboutBlogComp {
           div(cls := "is-size-6 underline", "Contact me"),
           a(
             href := s"mailto:${Config.authorEmail}",
-            "GMail ",
+            "Gmail ",
             FAIconComp("far fa-envelope")
+          ),
+          div(cls := "is-size-6 underline", "Report issue"),
+          a(
+            href := s"https://github.com/mt40/my_blog/issues/new",
+            "Github ",
+            FAIconComp("fab fa-github")
           )
         )
       }

@@ -10,6 +10,10 @@ echo "Build"
 
 echo "Hello world"
 
+ls -alh
+
+apt-get install git
+
 git branch -al
 
 git status

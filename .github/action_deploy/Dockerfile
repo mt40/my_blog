@@ -5,5 +5,9 @@ LABEL "com.github.actions.description"="Build and deploy ScalaJS app using sbt &
 LABEL "com.github.actions.icon"="cloud-lightning"
 LABEL "com.github.actions.color"="red"
 
+RUN apt-get update && \
+    apt-get upgrade -y && \
+    apt-get install -y git
+
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

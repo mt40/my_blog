@@ -16,7 +16,7 @@ commit_website_files() {
 
 upload_files() {
   git remote add origin-deploy https://${GITHUB_TOKEN}@github.com/mt40/my_blog.git
-  git push -u --set-upstream origin-deploy ${GITHUB_DEPLOY_BRANCH}
+  git push --force -u --set-upstream origin-deploy ${GITHUB_DEPLOY_BRANCH}
 }
 
 setup_git

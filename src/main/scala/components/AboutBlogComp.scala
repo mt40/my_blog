@@ -4,6 +4,8 @@ import common.Config
 import japgolly.scalajs.react.ScalaComponent
 
 object AboutBlogComp {
+  case class Props(isTextSmall: Boolean, isTextBlack: Boolean)
+
   private val aboutThisBlog =
     """This blog saves the experience I have on the way trying to
       |become a better programmer. This includes introductions, tutorials,
@@ -16,11 +18,17 @@ object AboutBlogComp {
 
   private val component = {
     ScalaComponent
-      .static("AboutBlog") {
+      .builder[Props]("AboutBlog")
+      .render_P { props =>
         import japgolly.scalajs.react.vdom.all._
 
+        val textSize = if(props.isTextSmall) Some("is-small") else None
+        val textColor = if(!props.isTextBlack) Some("has-text-grey") else None
+
         div(
-          cls := "content is-small has-text-grey",
+          cls := "content",
+          cls :=? textSize,
+          cls :=? textColor,
           div(cls := "is-size-5 margin-bot-t", b("About this blog")),
           p(aboutThisBlog),
           div(cls := "is-size-6 underline", "Contact me"),
@@ -37,7 +45,9 @@ object AboutBlogComp {
           )
         )
       }
+      .build
   }
 
-  def apply() = component()
+  def apply(isTextSmall: Boolean = true, isTextBlack: Boolean = false) =
+    component(Props(isTextSmall, isTextBlack))
 }

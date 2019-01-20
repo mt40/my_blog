@@ -26,6 +26,10 @@ package object pages {
     override def title: String = "Under construction"
   }
 
+  case object AboutPageType extends PageType {
+    override def title: String = "About"
+  }
+
   object shared {
 
     def renderNavBar: VdomNode = {
@@ -67,7 +71,7 @@ package object pages {
         section((cls := "section") +: mods :+ container: _*)
       }
 
-      def apply(children: TagMod*): VdomNode =  withMod()(children: _*)
+      def apply(children: TagMod*): VdomNode = withMod()(children: _*)
     }
   }
 }

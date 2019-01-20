@@ -45,10 +45,14 @@ object AppRouter {
       PostNotFoundPage()
     )
 
+    // /#!about
+    val about = staticRoute("#!about", AboutPageType) ~> render(AboutPage())
+
     // the use of `emptyRule` is just for nice formatting
     (emptyRule
       | home
       | fullPost
+      | about
       | postNotFound)
       .notFound(redirectToPath("notfound.html")(Redirect.Replace))
       .setTitle(_.title)

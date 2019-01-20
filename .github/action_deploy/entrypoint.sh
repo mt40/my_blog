@@ -3,4 +3,3 @@
 set -eu
 
 echo "Hello there"
-echo $@

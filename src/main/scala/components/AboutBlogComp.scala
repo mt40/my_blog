@@ -8,8 +8,8 @@ object AboutBlogComp {
 
   private val aboutThisBlog =
     """This blog saves the experience I have on the way trying to
-      |become a better programmer. This includes introductions, tutorials,
-      |career lessons, and bugs 🐞.
+      |become a better programmer. Here, I will share about cool technologies,
+      |career lessons, and bugs 🐞 (a.k.a programmers' most popular pets).
       |
       |If you are reading this, I hope that you will find something
       |useful for yourself.

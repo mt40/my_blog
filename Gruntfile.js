@@ -24,15 +24,26 @@ module.exports = function (grunt) {
 
     // https://github.com/gruntjs/grunt-contrib-uglify
     uglify: {
-      options: {
-        banner: '/*! <%= grunt.template.today("yyyy-mm-dd") %> */\n',
-        footer: '/* Author: minhthai */\n',
-        compress: true,
-        output: {
-          comments: false
-        }
+      dev: {
+        options: {
+          banner: '/*! dev build <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+          compress: false,
+          output: { comments: true }
+        },
+        files: [
+          {
+            src: 'target/scala-2.12/scalajs-bundler/main/*-bundle.js',
+            dest: 'build/js/bundle.js'
+          }
+        ]
       },
       production: {
+        options: {
+          banner: '/*! <%= grunt.template.today("yyyy-mm-dd") %> */\n',
+          footer: '/* Author: minhthai */\n',
+          compress: true,
+          output: { comments: false }
+        },
         files: [
           {
             src: 'target/scala-2.12/scalajs-bundler/main/*-bundle.js',
@@ -108,8 +119,8 @@ module.exports = function (grunt) {
 
   // for dev, run `grunt dev`
   // for production, run `grunt production`
-  var dev = ['shell:scalajs_dev', 'sass'];
-  var production = ['shell:scalajs_production', 'sass', 'uglify', 'size_report'];
+  var dev = ['shell:scalajs_dev', 'sass', 'uglify:dev'];
+  var production = ['shell:scalajs_production', 'sass', 'uglify:production', 'size_report'];
   grunt.registerTask('dev', dev);
   grunt.registerTask('production', production);
   grunt.registerTask('build_sass', ['sass']);

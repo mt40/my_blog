@@ -1,7 +1,7 @@
 package pages
 
-import components.{AboutBlogComp, HighlightPostComp, PostComp}
-import core.content.{IOPostStore, Metadata, PostInfo}
+import components.{AboutBlogComp, PostComp}
+import core.content.{IOPostStore, Metadata}
 import japgolly.scalajs.react.extra.router.RouterCtl
 import japgolly.scalajs.react.vdom.html_<^._
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
@@ -66,43 +66,6 @@ object HomePage {
                 )
               )
             )
-          )
-        )
-      }
-    }
-
-    @deprecated("too hard to design a theme for this", since = "0.1")
-    def renderWithHighlights(props: Props, state: State, posts: Seq[PostInfo]): VdomNode = {
-      val (highlights, others) = posts.splitAt(2) match {
-        case (tops, remaining) =>
-          val highlights = tops match {
-            case Seq(first, second) =>
-              (
-                HighlightPostComp(first, props.router),
-                HighlightPostComp(second, props.router)
-              )
-          }
-          val others = remaining.toTagMod(PostComp(_, props.router))
-          (highlights, others)
-      }
-
-      {
-        import japgolly.scalajs.react.vdom.all._
-
-        div(
-          section(
-            cls := "section",
-            div(
-              div(
-                cls := "columns",
-                div(cls := "column is-half", highlights._1),
-                div(cls := "column is-half", highlights._2)
-              )
-            )
-          ),
-          section(
-            cls := "section",
-            div(others)
           )
         )
       }

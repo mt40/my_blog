@@ -32,7 +32,6 @@ libraryDependencies ++= {
   )
 
   val utils = Seq(
-    "com.softwaremill.sttp" %%% "core" % "1.5.2",
     "io.circe" %%% "circe-core" % "0.11.0",
     "io.circe" %%% "circe-generic" % "0.11.0",
     "io.circe" %%% "circe-generic-extras" % "0.11.0",

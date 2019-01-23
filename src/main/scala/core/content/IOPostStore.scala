@@ -1,19 +1,17 @@
 package core.content
 
 import cats.effect.IO
-import com.softwaremill.sttp.Response
 import common.Api
-import core.http.{HttpClient, IOHttpClient}
+import core.http.{HttpClient, HttpResponse, IOHttpClient}
 import core.json.JsonParser
 import core.markdown.MarkdownParser
-import io.circe.generic.auto._
 
-class IOPostStore(httpClient: HttpClient[IO, Response[String]]) extends PostStore[IO] {
+class IOPostStore(httpClient: HttpClient[IO, HttpResponse]) extends PostStore[IO] {
 
   override def get(info: PostInfo): IO[Post] = {
     for {
       res  <- httpClient.get(Api.postResource(info.id, info.file).value)
-      body <- IO { res.unsafeBody }
+      body <- IO { res.body }
       html <- MarkdownParser.parse(body)
     } yield Post(info, body, html)
   }
@@ -21,7 +19,7 @@ class IOPostStore(httpClient: HttpClient[IO, Response[String]]) extends PostStor
   override def getMetadata: IO[Metadata] = {
     for {
       res      <- httpClient.get(Api.metadata.value)
-      body     <- IO { res.unsafeBody }
+      body     <- IO { res.body }
       metadata <- JsonParser.parse[Metadata](body)
     } yield metadata
   }

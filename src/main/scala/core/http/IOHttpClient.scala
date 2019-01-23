@@ -1,17 +1,19 @@
 package core.http
 
 import cats.effect.IO
-import com.softwaremill.sttp.{FetchBackend, Response, SttpBackend, sttp, _}
+import org.scalajs.dom.ext.Ajax
 
-import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.ExecutionContext
 
-object IOHttpClient extends HttpClient[IO, Response[String]] {
+object IOHttpClient extends HttpClient[IO, HttpResponse] {
 
-  // We still have to use `Future` here because 'sttp' only supports that monad
-  private implicit lazy val backend: SttpBackend[Future, Nothing] = FetchBackend()
+  private implicit val ec: ExecutionContext = scalajs.concurrent.JSExecutionContext.queue
 
-  override def get(endpoint: String): IO[Response[String]] = IO.fromFuture {
-    IO(sttp.get(uri"$endpoint").send())
+  override def get(endpoint: String): IO[HttpResponse] = IO.fromFuture {
+    IO{
+      Ajax
+        .get(endpoint, headers = Map("Content-Encoding" -> "gzip"))
+        .map(res => HttpResponse(res.status, res.responseText))
+    }
   }
 }

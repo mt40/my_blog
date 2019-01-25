@@ -11,6 +11,7 @@ $transparent_black: rgba(2, 21, 33, 0.1); // for shadows
 $dark_blue: #1d5093;
 $blue_gradient: -webkit-linear-gradient(-45deg, #1d5093 0%, #559cd6 67%);
 $theme_color: black;
+$code_highlight_color: #4271ae;
 
 // spacing (used in margin & padding rules)
 $tiny_space: 1vh;
@@ -210,4 +211,16 @@ body {
   padding-top: 30px;
   height: 0;
   overflow: hidden;
+}
+
+// prevents code highlighting library to mess with the ui
+code.hljs {
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+// the code highlighter only works on <pre><code>, we need to assist it
+// when <code> stands alone
+p > code {
+  color: $code_highlight_color !important;
 }

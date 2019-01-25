@@ -6,8 +6,12 @@ import moment.Moment
 import scala.util.Try
 
 /**
-  * Representation of a local date. Backed by Moment.js
+  * Representation of a local date. Backed by 'Moment.js'.
   *
+  * @note Locale feature is not supported and its code is ignore
+  *       in the final bundle. If you ever want to use it, you must
+  *       modify the webpack 'IgnorePlugin' rule to allow the code
+  *       to be bundled.
   * @see http://momentjs.com/
   */
 class Date(momentDate: moment.Date) {

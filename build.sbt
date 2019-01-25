@@ -14,7 +14,6 @@ resolvers += Resolver.jcenterRepo
 
 libraryDependencies ++= {
   val scalaJS = Seq(
-    "org.scala-js" %%% "scalajs-dom" % "0.9.6",
     "com.github.japgolly.scalajs-react" %%% "core" % "1.3.1",
     "com.github.japgolly.scalajs-react" %%% "extra" % "1.3.1"
   )
@@ -25,9 +24,6 @@ libraryDependencies ++= {
   )
 
   val fp = Seq(
-    "org.typelevel" %%% "cats-macros" % "1.5.0",
-    "org.typelevel" %%% "cats-core" % "1.5.0",
-    "org.typelevel" %%% "cats-kernel" % "1.5.0",
     "org.typelevel" %%% "cats-effect" % "1.1.0"
   )
 
@@ -52,11 +48,28 @@ Compile / npmDependencies ++= Seq(
   "react-dom" -> "16.7.0",
   "marked"    -> "0.5.2",
   "jquery"    -> "3.3.1",
-  "moment"    -> "2.19.2"
+  "moment"    -> "2.19.2",
+//  "react-syntax-highlighter" -> "10.1"
+  "react-highlight" -> "0.12"
 )
 
 // Disable source maps generation
 Compile / emitSourceMaps := false
+
+version in webpack := "4.29.0"
+
+version in startWebpackDevServer := "3.1.14"
+
+webpackConfigFile := Some(baseDirectory.value / "custom.webpack.config.js")
+
+//webpackExtraArgs := Seq("--json", "--verbose")
+
+//val files = (Compile / fullOptJS / webpack)
+
+//lazy val webpackLs = TaskKey[Unit]("webpackLs", "Dummy task for Heroku")
+//webpackLs := {
+//  println((Compile / fastOptJS / webpack).value.mkString("\n"))
+//}
 
 /**
   * Because Heroku requires a Scala app to have a task named

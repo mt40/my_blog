@@ -1,7 +1,7 @@
 package core.content
 
 import common.Date
-import io.circe.Decoder
+import upickle.default._
 
 case class Metadata(posts: Seq[PostInfo]) {
 
@@ -13,8 +13,9 @@ case class Metadata(posts: Seq[PostInfo]) {
 object Metadata {
   lazy val empty: Metadata = Metadata(Seq.empty)
 
-  /** For 'circe' to decode json. */
-  implicit def decoder(implicit info: Decoder[PostInfo]): Decoder[Metadata] = {
-    Decoder.forProduct1[Metadata, Seq[PostInfo]]("posts")(Metadata(_))(Decoder.decodeSeq)
-  }
+  def apply(p: PostInfo): Metadata = Metadata(Seq(p))
+
+  // 'wartremover' confuses macro with `var` :(
+  @SuppressWarnings(Array("org.wartremover.warts.Var"))
+  implicit val reader: Reader[Metadata] = macroR
 }

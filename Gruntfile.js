@@ -19,6 +19,9 @@ module.exports = function (grunt) {
       },
       scalajs_production: {
         command: 'sbt fullOptJS::webpack'
+      },
+      run_test: {
+        command: 'sbt test'
       }
     },
 
@@ -108,7 +111,9 @@ module.exports = function (grunt) {
   // for dev, run `grunt dev`
   // for production, run `grunt production`
   var dev = ['shell:scalajs_dev', 'sass', 'copy:dev'];
-  var production = ['shell:scalajs_production', 'sass', 'copy:production', 'size_report'];
+  var production = [
+    'shell:scalajs_production', 'shell:run_test', 'sass', 'copy:production', 'size_report'
+  ];
   grunt.registerTask('dev', dev);
   grunt.registerTask('production', production);
   grunt.registerTask('build_sass', ['sass']);

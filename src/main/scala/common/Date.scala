@@ -1,9 +1,9 @@
 package common
 
-import io.circe.Decoder
 import moment.Moment
+import upickle.default._
 
-import scala.util.Try
+import scala.util.{Failure, Success, Try}
 
 /**
   * Representation of a local date. Backed by 'Moment.js'.
@@ -18,9 +18,10 @@ class Date(momentDate: moment.Date) {
 
   def year: Int = momentDate.year()
 
-  def month: Int = momentDate.month()
+  def month: Int = momentDate.month() + 1 // month in 'moment' is 0-indexed
 
-  def day: Int = momentDate.day()
+  /** Returns day of month. */
+  def day: Int = momentDate.date()
 
   def dayOfWeek: String = momentDate.format(Formats.dayOfWeek)
 
@@ -41,7 +42,15 @@ class Date(momentDate: moment.Date) {
     )
   }
 
-  override def toString: String = s"$year-$month-$day"
+  // testme: looks like output is not in correct format
+  override def toString: String = f"$year%04d-$month%02d-$day%02d"
+
+  override def equals(obj: Any): Boolean = {
+    obj match {
+      case d: Date => toString == d.toString
+      case _       => false
+    }
+  }
 }
 
 object Date {
@@ -62,6 +71,12 @@ object Date {
 
   def descOrdering: Ordering[Date] = Ordering.fromLessThan(_.toString > _.toString)
 
-  /** For 'circe' to decode json. */
-  implicit val decoder: Decoder[Date] = Decoder.decodeString.emapTry(Date.apply)
+  implicit val jsonReader: Reader[Date] = {
+    reader[String].map[Date] { s =>
+      Date(s) match {
+        case Success(v) => v
+        case Failure(e) => throw e
+      }
+    }
+  }
 }

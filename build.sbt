@@ -44,12 +44,11 @@ libraryDependencies ++= {
 
 // Some other libs from NPM
 Compile / npmDependencies ++= Seq(
-  "react"     -> "16.7.0",
-  "react-dom" -> "16.7.0",
-  "marked"    -> "0.5.2",
-  "jquery"    -> "3.3.1",
-  "moment"    -> "2.19.2",
-//  "react-syntax-highlighter" -> "10.1"
+  "react"           -> "16.7.0",
+  "react-dom"       -> "16.7.0",
+  "marked"          -> "0.5.2",
+  "jquery"          -> "3.3.1",
+  "moment"          -> "2.19.2",
   "react-highlight" -> "0.12"
 )
 
@@ -61,15 +60,6 @@ version in webpack := "4.29.0"
 version in startWebpackDevServer := "3.1.14"
 
 webpackConfigFile := Some(baseDirectory.value / "custom.webpack.config.js")
-
-//webpackExtraArgs := Seq("--json", "--verbose")
-
-//val files = (Compile / fullOptJS / webpack)
-
-//lazy val webpackLs = TaskKey[Unit]("webpackLs", "Dummy task for Heroku")
-//webpackLs := {
-//  println((Compile / fastOptJS / webpack).value.mkString("\n"))
-//}
 
 /**
   * Because Heroku requires a Scala app to have a task named
@@ -83,7 +73,6 @@ stage := {
   import scala.sys.process._
   "npm run build_production".!
 }
-
 
 // Configure style check when compile
 Compile / wartremoverErrors ++= Seq(

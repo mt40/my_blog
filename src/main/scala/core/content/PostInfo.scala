@@ -1,7 +1,8 @@
 package core.content
 
 import common.Date
-import io.circe.Decoder
+import core.json.JsonParser
+import upickle.default._
 
 /**
   * Represents a post.
@@ -41,11 +42,9 @@ object PostInfo {
     file = ""
   )
 
-  /** For 'circe' to decode json. */
-  implicit def decoder: Decoder[PostInfo] = {
-    Decoder
-      .forProduct7("id", "title", "createDate", "tags", "file", "image", "summary")(
-        PostInfo.apply
-      )
-  }
+  implicit def OptionReader[T : Reader]: Reader[Option[T]] = JsonParser.option
+
+  // 'wartremover' confuses macro with `var` :(
+  @SuppressWarnings(Array("org.wartremover.warts.Var"))
+  implicit val reader: Reader[PostInfo] = macroR
 }

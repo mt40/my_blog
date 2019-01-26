@@ -28,10 +28,7 @@ libraryDependencies ++= {
   )
 
   val utils = Seq(
-    "io.circe" %%% "circe-core" % "0.11.0",
-    "io.circe" %%% "circe-generic" % "0.11.0",
-    "io.circe" %%% "circe-generic-extras" % "0.11.0",
-    "io.circe" %%% "circe-parser" % "0.11.0"
+    "com.lihaoyi" %%% "upickle" % "0.7.1"
   )
 
   val testing = Seq(
@@ -75,7 +72,7 @@ stage := {
 }
 
 // Configure style check when compile
-Compile / wartremoverErrors ++= Seq(
+Compile / compile / wartremoverErrors ++= Seq(
   Wart.AsInstanceOf,
   Wart.EitherProjectionPartial,
   Wart.IsInstanceOf,
@@ -88,3 +85,5 @@ Compile / wartremoverErrors ++= Seq(
   Wart.TryPartial,
   Wart.Var
 )
+
+Test / compile / wartremoverErrors := Seq.empty

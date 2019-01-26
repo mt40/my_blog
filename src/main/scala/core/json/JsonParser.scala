@@ -1,17 +1,29 @@
 package core.json
 
 import cats.effect.IO
-import io.circe.Decoder
-import io.circe.generic.extras.Configuration
-import io.circe.parser.decode
+import upickle.default._
 
-// todo: add a test to check that no post inside 'metadata.json' has the same name
 object JsonParser {
 
-  // Allow default values for missing fields
-  implicit val config: Configuration = Configuration.default.withDefaults
+  /**
+    * A custom reader for `Option`.
+    *
+    * To use this, you have to declare an implicit named exactly 'OptionReader'.
+    * {{{
+    *   implicit def OptionReader[T : Reader]: Reader[Option[T]] = JsonParser.option
+    * }}}
+    *
+    * This is because we want to override the reader of the same type in 'upickle'.
+    * That one accepts an array instead of a single value (see the issue below).
+    *
+    * @see https://github.com/lihaoyi/upickle/issues/75
+    */
+  def option[T : Reader]: Reader[Option[T]] = reader[ujson.Value].map {
+    case ujson.Null => None
+    case jsValue    => Some(read[T](jsValue))
+  }
 
-  def parse[A : Decoder](json: String): IO[A] = IO.fromEither {
-    decode[A](json)
+  def parse[A : Reader](json: String): IO[A] = IO {
+    read[A](json)
   }
 }

@@ -12,6 +12,7 @@ $dark_blue: #1d5093;
 $blue_gradient: -webkit-linear-gradient(-45deg, #1d5093 0%, #559cd6 67%);
 $theme_color: black;
 $code_highlight_color: #4271ae;
+$text-color: rgb(22, 22, 22);
 
 // spacing (used in margin & padding rules)
 $tiny_space: 1vh;
@@ -124,6 +125,7 @@ $border_width: 1px;
 
 body {
   font-family: $text_font;
+  color: $text-color;
 }
 
 .is-divider {

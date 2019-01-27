@@ -4,16 +4,14 @@ import cats.effect.IO
 import common.Api
 import core.http.{HttpClient, HttpResponse, IOHttpClient}
 import core.json.JsonParser
-import core.markdown.MarkdownParser
 
 class IOPostStore(httpClient: HttpClient[IO, HttpResponse]) extends PostStore[IO] {
 
   override def get(info: PostInfo): IO[Post] = {
     for {
-      res  <- httpClient.get(Api.postResource(info.id, info.file).value)
-      body <- IO { res.body }
-      html <- MarkdownParser.parse(body)
-    } yield Post(info, body, html)
+      res      <- httpClient.get(Api.postResource(info.id, info.file).value)
+      markdown <- IO { res.body }
+    } yield Post(info, markdown)
   }
 
   override def getMetadata: IO[Metadata] = {

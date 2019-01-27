@@ -2,6 +2,7 @@ package common.facades.highlighter
 
 import japgolly.scalajs.react.Children
 import japgolly.scalajs.react.JsComponent
+import japgolly.scalajs.react.vdom.VdomNode
 
 import scala.scalajs.js
 import scala.scalajs.js.annotation.JSImport
@@ -40,13 +41,13 @@ object Highlighter {
   private val component = JsComponent[Props, Children.Varargs, Null](Raw)
 
   private val supportedLanguage =
-    js.Array("scala", "javascript", "html", "css", "scss", "java", "python")
+    js.Array("scala", "javascript", "html", "css", "scss", "java", "python", "bash")
 
   @SuppressWarnings(Array("org.wartremover.warts.AsInstanceOf"))
-  def apply(language: String) = {
+  def apply(language: String)(children: VdomNode*) = {
     val props = js.Dynamic
-      .literal(className = s"language-$language", language = supportedLanguage)
+      .literal(className = s"$language", language = supportedLanguage)
       .asInstanceOf[Props]
-    component.apply(props) _
+    component.apply(props)(children: _*)
   }
 }

@@ -13,12 +13,7 @@ import scala.util.Try
 
 object FullPostPage {
 
-  case class Props(
-    postId: String,
-    anchor: Option[String],
-    currentUrl: String,
-    router: RouterCtl[PageType]
-  )
+  case class Props(postId: String, anchor: Option[String], router: RouterCtl[PageType])
 
   case class State(post: Post, similar: Seq[PostInfo])
 
@@ -87,7 +82,7 @@ object FullPostPage {
     def render(props: Props, state: State): VdomNode = {
       import japgolly.scalajs.react.vdom.all._
 
-      val postContentSection = shared.bodyWrapper(FullPostComp(state.post, props.currentUrl))
+      val postContentSection = shared.bodyWrapper(FullPostComp(state.post))
 
       val similarPostsSection = {
         val similarPosts = {
@@ -198,12 +193,7 @@ object FullPostPage {
     * When arrive at this page, the only reliable information is the post id
     * from the url. We use that to retrieved the metadata and the full post.
     */
-  def apply(
-    postId: String,
-    anchor: Option[String],
-    currentUrl: String,
-    router: RouterCtl[PageType]
-  ) = {
-    component(Props(postId, anchor, currentUrl, router))
+  def apply(postId: String, anchor: Option[String], router: RouterCtl[PageType]) = {
+    component(Props(postId, anchor, router))
   }
 }

@@ -28,7 +28,8 @@ libraryDependencies ++= {
   )
 
   val utils = Seq(
-    "com.lihaoyi" %%% "upickle" % "0.7.1"
+    "com.lihaoyi" %%% "upickle" % "0.7.1",
+    "com.lihaoyi" %%% "fastparse" % "2.1.0"
   )
 
   val testing = Seq(
@@ -43,7 +44,6 @@ libraryDependencies ++= {
 Compile / npmDependencies ++= Seq(
   "react"           -> "16.7.0",
   "react-dom"       -> "16.7.0",
-  "marked"          -> "0.5.2",
   "jquery"          -> "3.3.1",
   "moment"          -> "2.19.2",
   "react-highlight" -> "0.12"
@@ -52,7 +52,11 @@ Compile / npmDependencies ++= Seq(
 // Disable source maps generation
 Compile / emitSourceMaps := false
 
-version in webpack := "4.29.0"
+/** 
+  * Newer versions of webpack has a bug in its minify plugin
+  * @see https://github.com/vuejs/vue-cli/issues/3407
+   */
+version in webpack := "4.20.0"
 
 version in startWebpackDevServer := "3.1.14"
 

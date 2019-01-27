@@ -31,7 +31,7 @@ module.exports.plugins = [
   // ignore 'highlight.js' files
   new webpack.ContextReplacementPlugin(
     /highlight\.js\/lib\/languages$/,
-    /scala|javascript|html|css|scss|java|python/
+    /scala|javascript|html|css|scss|java|python|bash/
   ),
   // ignore 'moment' locale files since we don't use that feature
   new webpack.IgnorePlugin({

@@ -11,4 +11,4 @@ Sample [link][link]
 
 Sample video
 
-<iframe src="https://www.youtube-nocookie.com/embed/CfUGjK6gGgs"></iframe>
+!youtube(https://www.youtube-nocookie.com/embed/CfUGjK6gGgs)

@@ -133,7 +133,7 @@ body {
   border-width: $border_width;
 }
 
-.navbar-item, .post-anchor, .tag, p, noscript {
+.navbar-item, .post-anchor, .tag, p, noscript, blockquote {
   white-space: pre-wrap;
 }
 
@@ -185,6 +185,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+  margin-top: $small_space;
+  margin-bottom: $small_space;
 }
 
 .content-img {
@@ -219,6 +221,7 @@ body {
 code.hljs {
   padding: 0 !important;
   background: transparent !important;
+  overflow-x: visible;
 }
 
 // the code highlighter only works on <pre><code>, we need to assist it

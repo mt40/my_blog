@@ -42,7 +42,6 @@ class Date(momentDate: moment.Date) {
     )
   }
 
-  // testme: looks like output is not in correct format
   override def toString: String = f"$year%04d-$month%02d-$day%02d"
 
   override def equals(obj: Any): Boolean = {

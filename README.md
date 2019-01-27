@@ -47,6 +47,87 @@ app on its server.
 - Type `localhost:3000` in your browser to see the site.
 After refresh, you should be able to see the updated site in your browser.
 
+## Markdown
+
+To have more control on how post content is displayed, I implement a parser
+ that can work with my own customized Markdown syntax.
+
+### Cheat sheet
+
+#### Headers
+
+```markdown
+# H1
+## H2
+### H3
+#### H4
+##### H5
+###### H6
+```
+
+#### Bold & italic
+
+```markdown
+**bold**
+_italic_
+```
+
+Underscore syntax for bold text `__bold__` and asterisk syntax for italic
+ text `*italic*` are not supported.
+ 
+#### List
+
+Only unordered list is supported and there can be only 1 level for now.
+
+```markdown
+- item 1
+- item 2
+```
+
+#### Links
+
+Both inline and reference style are supported.
+
+```markdown
+[inline link](google.com)
+
+[reference link][ref]
+[ref]: google.com
+```
+
+#### Image
+
+```markdown
+[cute dog](dog.jpg)
+
+[cute dog][dog]
+[dog]: dog.jpg
+```
+
+#### Youtube video
+
+```
+!youtube(https://youtu.be/Yifz3X_i-F8)
+```
+
+#### Code
+
+Both inline and block syntax are supported.
+````markdown
+Inline `code` with backticks.
+
+```scala
+println("Hello world")
+```
+````
+
+#### Blockquote
+
+```markdown
+> line 1
+> line 2
+```
+
 
 [grunt]: https://gruntjs.com/
 [sbt]: https://www.scala-sbt.org/download.html

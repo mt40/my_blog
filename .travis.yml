@@ -15,5 +15,5 @@ deploy:
   on:
     branch: master
 branches:
-  except:
-    - $GITHUB_DEPLOY_BRANCH # never run on this branch
+  only:
+    - master

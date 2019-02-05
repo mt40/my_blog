@@ -3,7 +3,7 @@ enablePlugins(ScalaJSBundlerPlugin)
 
 name := "my_blog"
 
-version := "0.1"
+version := "1.0-preview"
 
 scalaVersion := "2.12.8"
 

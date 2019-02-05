@@ -1,4 +1,5 @@
 import components.NavBarComp
+import japgolly.scalajs.react.Callback
 import japgolly.scalajs.react.vdom.TagMod
 import japgolly.scalajs.react.vdom.html_<^.VdomNode
 
@@ -32,14 +33,22 @@ package object pages {
 
   object shared {
 
-    def renderNavBar: VdomNode = {
+    def renderNavBar(): VdomNode = doRenderNavBar(None)
+
+    def renderNavBar(reloadDisqus: () => Callback): VdomNode =
+      doRenderNavBar(Some(reloadDisqus))
+
+    private def doRenderNavBar(reloadDisqus: Option[() => Callback]): VdomNode = {
       import japgolly.scalajs.react.vdom.all._
 
       section(
         cls := "section padding-top-0 padding-bot-0 shadow-light",
         div(
           cls := "container",
-          NavBarComp()
+          reloadDisqus match {
+            case Some(f) => NavBarComp(f)
+            case _       => NavBarComp()
+          }
         )
       )
     }

@@ -42,7 +42,7 @@ object HomePage {
         import japgolly.scalajs.react.vdom.all._
 
         div(
-          shared.renderNavBar,
+          shared.renderNavBar(),
           section(
             cls := "section",
             div(

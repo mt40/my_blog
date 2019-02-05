@@ -28,4 +28,6 @@ object Api {
     * ⋰⋰⋰
     */
   def siteLogo: AbsUrl = imageAsset("undertherain_logo_200.png")
+
+  def siteLogoDark: AbsUrl = imageAsset("undertherain_logo_200_dark.png")
 }

@@ -10,7 +10,7 @@ object AboutPage {
         import japgolly.scalajs.react.vdom.all._
 
         div(
-          shared.renderNavBar,
+          shared.renderNavBar(),
           shared.bodyWrapper(
             AboutBlogComp(isTextSmall = false, isTextBlack = true)
           )

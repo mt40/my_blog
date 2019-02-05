@@ -103,7 +103,7 @@ object FullPostPage {
         .withMod(cls := "has-background-light padding-top-0")(shared.renderDisqus)
 
       div(
-        shared.renderNavBar,
+        shared.renderNavBar(() => loadComments(props.postId)),
         postContentSection,
         similarPostsSection,
         comments

@@ -1,10 +1,13 @@
 package components
 
 import common.Api
+import common.Global.jQuery
 import japgolly.scalajs.react.vdom.VdomNode
 import japgolly.scalajs.react.{BackendScope, Callback, ScalaComponent}
 
 object NavBarComp {
+
+  case class Props(reloadDisqus: Option[() => Callback] = None)
 
   /** @param isBurgerActive if `true`, the hamburger menu will be opened */
   case class State(isBurgerActive: Boolean)
@@ -13,13 +16,46 @@ object NavBarComp {
     def default = State(false)
   }
 
-  class Backend(scope: BackendScope[Unit, State]) {
+  class Backend(scope: BackendScope[Props, State]) {
+
+    private val nightModeClassName = "night-mode"
+    private val lightCodeHighlightStyle = "tomorrow"
+    private val darkCodeHighlightStyle = "atom-one-dark"
 
     def onBurgerClick: Callback = {
       scope.modState(s => s.copy(isBurgerActive = !s.isBurgerActive))
     }
 
-    def render(state: State): VdomNode = {
+    def onNightModeClick(props: Props): Callback = Callback {
+      // change class of 'body'
+      jQuery("body").toggleClass(nightModeClassName)
+
+      // change logo & code highlight style
+      val logo = jQuery("img.site-logo")
+      val highlightStyle = jQuery("#code-highlight-style")
+      val href = highlightStyle.attr("href")
+      if(href.exists(_ contains lightCodeHighlightStyle)) {
+        logo.attr("src", Api.siteLogoDark.value)
+        highlightStyle.attr(
+          "href",
+          href.get.replace(lightCodeHighlightStyle, darkCodeHighlightStyle)
+        )
+      }
+      else {
+        logo.attr("src", Api.siteLogo.value)
+        highlightStyle.attr(
+          "href",
+          href.get.replace(darkCodeHighlightStyle, lightCodeHighlightStyle)
+        )
+      }
+
+      // reload 'Disqus' so it can automatically change to dark theme
+      if(props.reloadDisqus.isDefined) {
+        props.reloadDisqus.foreach(_.apply().runNow())
+      }
+    }
+
+    def render(props: Props, state: State): VdomNode = {
       val isBurgerActive = if(state.isBurgerActive) Some("is-active") else None
 
       {
@@ -51,7 +87,8 @@ object NavBarComp {
             val nightMode = a(
               cls := "navbar-item padding-left-0 is-size-7",
               "Night Mode ",
-              FAIconComp("fas fa-moon")
+              FAIconComp("fas fa-moon"),
+              onClick --> onNightModeClick(props)
             )
             if(state.isBurgerActive) {
               TagMod(
@@ -89,11 +126,14 @@ object NavBarComp {
 
   private val component = {
     ScalaComponent
-      .builder[Unit]("NavBar")
+      .builder[Props]("NavBar")
       .initialState(State.default)
       .renderBackend[Backend]
       .build
   }
 
-  def apply() = component()
+  def apply() = component(Props())
+
+  def apply(reloadDisqus: () => Callback) =
+    component(Props(Some(reloadDisqus)))
 }

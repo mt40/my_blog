@@ -26,6 +26,7 @@ object NavBarComp {
       scope.modState(s => s.copy(isBurgerActive = !s.isBurgerActive))
     }
 
+    @deprecated("night mode is now permanent", since = "1.0-preview2")
     def onNightModeClick(props: Props): Callback = Callback {
       // change class of 'body'
       jQuery("body").toggleClass(nightModeClassName)
@@ -68,7 +69,7 @@ object NavBarComp {
               cls := "navbar-item padding-left-0 no-bg",
               cls :=? isBurgerActive,
               href := Api.site.value,
-              img(cls := "site-logo", src := Api.siteLogo.value),
+              img(cls := "site-logo", src := Api.siteLogoDark.value),
               code(cls := "site-brand is-size-7", "under_the_rain")
             ),
             // the hamburger icon, which toggles the navbar menu on touch devices
@@ -84,24 +85,17 @@ object NavBarComp {
 
         val menu = {
           val menuItems = {
-            val nightMode = a(
-              cls := "navbar-item padding-left-0 is-size-7",
-              "Night Mode ",
-              FAIconComp("fas fa-moon"),
-              onClick --> onNightModeClick(props)
-            )
             if(state.isBurgerActive) {
               TagMod(
                 a(
                   cls := "navbar-item padding-left-0 is-size-7",
                   href := Api.about.value,
                   "About"
-                ),
-                nightMode
+                )
               )
             }
             else {
-              nightMode
+              TagMod.empty
             }
           }
 

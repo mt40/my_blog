@@ -3,7 +3,7 @@
 // fonts
 $text_font: 'Noto Serif', Georgia, serif;
 $theme_font: 'Press Start 2P', monospace;
-$san_serif_font: Arial, Helvetica, sans-serif;
+$san_serif_font: "Trebuchet MS", Helvetica, sans-serif;
 
 // colors
 $light_gray: rgb(245, 245, 245); // for borders, dividers
@@ -238,6 +238,10 @@ code.hljs {
 // when <code> stands alone
 p > code {
   color: $code_highlight_color !important;
+}
+
+h1, h2, h3, h4, h5, h6, .title {
+  font-family: $san_serif_font;
 }
 
 // -------------

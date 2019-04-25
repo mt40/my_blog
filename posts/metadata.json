@@ -8,6 +8,14 @@
       "file": "learn_scala_2019.md",
       "image": "scala_logo.jpg",
       "summary": "If you are looking for a new programming language to learn this year, Scala is a good choice."
+    },
+    {
+      "id": "scala_hash_map",
+      "title": "Implement a Hash Map in Scala",
+      "createDate": "2019-03-03",
+      "tags": ["scala", "collection"],
+      "file": "scala_hash_map.md",
+      "summary": "Implementing a Hash Map is a good way to get familiar with a language, let's see how we can do that in Scala"
     }
   ]
 }

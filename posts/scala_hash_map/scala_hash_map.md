@@ -1,3 +1,5 @@
+![hash_map_img][hash_map_img]
+
 Implementing a [Hash Map][hash_map] is a good way to get familiar with a new language, let's see how it can be done in Scala. This article assumes that you are familiar with the data structure. If not, Hacker Earth has a really [nice article][hash_map_guide] to get you started.
 
 Now, for this implementation, there are a few things I want to achieve:
@@ -96,8 +98,9 @@ val dev = web.add(2, 'dev') // 1 -> 'web', 2 -> 'dev'
 - `Array` can be used for faster indexed access. Here, I use `Vector` to keep everything immutable.
 - A more complete code can be found on [my Github][github_link].
 
-[hash_map]: wiki
+[hash_map_img]: hash_table.png
+[hash_map]: https://en.wikipedia.org/wiki/Hash_table
 [hash_map_guide]: https://www.hackerearth.com/practice/data-structures/hash-tables/basics-of-hash-tables/tutorial/
 [chaining]: https://en.wikipedia.org/wiki/Hash_table#Separate_chaining
-[leave_work]: http://gojobr.com.au/wp-content/uploads/2015/02/7-Excuses-To-Leave-Work-Early.png
+[leave_work]: leave_work.png
 [github_link]: https://github.com/mt40/scala_interview/blob/master/src/main/scala/collection/HashMap.scala

@@ -97,6 +97,7 @@ val dev = web.add(2, 'dev') // 1 -> 'web', 2 -> 'dev'
 ## Notes
 - `Array` can be used for faster indexed access. Here, I use `Vector` to keep everything immutable.
 - A more complete code can be found on [my Github][github_link].
+- This implementation uses a constant capacity (and it shouldn't). In practice, you should add some logic in method `add` to increase the capacity when needed. This is important to maintain performance.
 
 [hash_map_img]: hash_table.png
 [hash_map]: https://en.wikipedia.org/wiki/Hash_table

@@ -15,7 +15,6 @@
       "createDate": "2019-03-03",
       "tags": ["scala", "collection"],
       "file": "scala_hash_map.md",
-      "image": "leave_work.png",
       "summary": "Implementing a Hash Map is a good way to get familiar with a language, let's see how we can do that in Scala"
     }
   ]

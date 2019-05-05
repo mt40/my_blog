@@ -89,8 +89,8 @@ And that's it! We have completed our Hash Map implementation that satisfied the 
 
 ```scala
 val map = new HashMap[Int, String](Vector.empty)
-val web = map.add(1, 'web') // 1 -> 'web'
-val dev = web.add(2, 'dev') // 1 -> 'web', 2 -> 'dev'
+val web = map.add(1, "web") // 1 -> "web"
+val dev = web.add(2, "dev") // 1 -> "web", 2 -> "dev"
 ```
 
 

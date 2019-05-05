@@ -38,7 +38,7 @@ module.exports = function (grunt) {
       production: {
         files: [
           {
-            src: 'scss/*.scss',
+            src: 'scss/index.scss',
             dest: 'build/css/index.css'
           }
         ]

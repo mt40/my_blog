@@ -1,5 +1,7 @@
 // for syntax, see: https://sass-lang.com/guide
 
+@import "rain";
+
 // fonts
 $text_font: 'Noto Serif', Georgia, serif;
 $theme_font: 'Press Start 2P', monospace;
@@ -7,6 +9,7 @@ $san_serif_font: "Trebuchet MS", Helvetica, sans-serif;
 
 // colors
 $light_gray: rgb(245, 245, 245); // for borders, dividers
+$dark_gray: #7a7a7a;
 $transparent_black: rgba(2, 21, 33, 0.1); // for shadows
 $dark_blue: #1d5093;
 $blue_gradient: -webkit-linear-gradient(-45deg, #1d5093 0%, #559cd6 67%);
@@ -131,6 +134,10 @@ $border_width: 1px;
   @extend %has_theme_font;
 }
 
+.has-text-gray {
+  color: $dark_gray;
+}
+
 // Specific elements
 
 body {
@@ -227,6 +234,16 @@ body {
   overflow: hidden;
 }
 
+.about-wrapper:hover {
+  background-color: $light_blue;
+  color: white !important;
+  font-weight: bold;
+
+  a {
+    color: white;
+  }
+}
+
 // prevents code highlighting library to mess with the ui
 code.hljs {
   padding: 0 !important;
@@ -243,6 +260,11 @@ p > code {
 h1, h2, h3, h4, h5, h6, .title {
   font-family: $san_serif_font;
 }
+
+.navbar-item, .navbar-burger, .site-brand {
+  color: $ash_white !important;
+}
+
 
 // -------------
 // Night mode

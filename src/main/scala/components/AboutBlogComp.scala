@@ -4,7 +4,11 @@ import common.Config
 import japgolly.scalajs.react.ScalaComponent
 
 object AboutBlogComp {
-  case class Props(isTextSmall: Boolean, isTextBlack: Boolean)
+
+  /**
+    * @param isTextBlack deprecated
+    */
+  case class Props(isTextSmall: Boolean)
 
   private val aboutThisBlog =
     """This blog saves the experience I have on the way trying to
@@ -23,12 +27,10 @@ object AboutBlogComp {
         import japgolly.scalajs.react.vdom.all._
 
         val textSize = if(props.isTextSmall) Some("is-small") else None
-        val textColor = if(!props.isTextBlack) Some("has-text-grey") else None
 
         div(
           cls := "content",
           cls :=? textSize,
-          cls :=? textColor,
           div(cls := "is-size-5 margin-bot-t", b("About this blog")),
           p(aboutThisBlog),
           div(cls := "is-size-6 underline", "Contact me"),
@@ -48,6 +50,6 @@ object AboutBlogComp {
       .build
   }
 
-  def apply(isTextSmall: Boolean = true, isTextBlack: Boolean = false) =
-    component(Props(isTextSmall, isTextBlack))
+  def apply(isTextSmall: Boolean = true) =
+    component(Props(isTextSmall))
 }

@@ -15,7 +15,7 @@ object TagComp {
       .render_P { props =>
         import japgolly.scalajs.react.vdom.all._
         span(
-          cls := "tag padding-left-0 no-bg font-san-serif has-text-grey",
+          cls := "tag padding-left-0 no-bg font-san-serif has-text-gray",
           span(cls := "tag-wall has-background-grey"),
           props.name
         )

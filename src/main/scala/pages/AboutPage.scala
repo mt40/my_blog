@@ -12,7 +12,7 @@ object AboutPage {
         div(
           shared.renderNavBar(),
           shared.bodyWrapper(
-            AboutBlogComp(isTextSmall = false, isTextBlack = true)
+            AboutBlogComp(isTextSmall = false)
           )
         )
       }

@@ -56,8 +56,7 @@ object HomePage {
                 div(
                   cls := "column is-3 is-hidden-mobile",
                   div(
-                    cls := "columns",
-                    div(cls := "is-divider-vertical"),
+                    cls := "columns has-text-gray about-wrapper",
                     div(
                       cls := "column",
                       AboutBlogComp()

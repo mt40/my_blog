@@ -35,7 +35,7 @@ object PostComp {
               cls := "column is-6",
               div(
                 // use class "tag" to get the same size as the tags above
-                cls := "is-size-7 has-text-grey margin-top-t post-create-date tag no-bg",
+                cls := "is-size-7 has-text-gray margin-top-t post-create-date tag no-bg",
                 s"${info.createDate.prettyString}"
               )
             )

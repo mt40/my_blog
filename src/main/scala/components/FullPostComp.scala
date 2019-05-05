@@ -44,11 +44,11 @@ object FullPostComp {
             postBody
           ),
           div(
-            cls := "is-italic has-text-grey-light margin-top-l",
+            cls := "is-italic has-text-gray-light margin-top-l",
             s"Published on ${props.post.info.createDate.prettyString}"
           ),
           div(
-            cls := "is-size-3 has-text-grey-light margin-bot-m",
+            cls := "is-size-3 has-text-gray-light margin-bot-m",
             "- - -"
           ),
           div(cls := "tags margin-bot-t", tags)

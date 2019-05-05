@@ -41,10 +41,15 @@ package object pages {
     private def doRenderNavBar(reloadDisqus: Option[() => Callback]): VdomNode = {
       import japgolly.scalajs.react.vdom.all._
 
+      val rainDrops = (0 until 7).map { idx =>
+        i(cls := "rain", key := idx)
+      }
+
       section(
-        cls := "section padding-top-0 padding-bot-0 shadow-light",
+        cls := "section padding-top-0 padding-bot-0 has-background-black-bis",
         div(
           cls := "container",
+          rainDrops.toTagMod,
           reloadDisqus match {
             case Some(f) => NavBarComp(f)
             case _       => NavBarComp()
